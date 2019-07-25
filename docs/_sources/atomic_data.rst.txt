@@ -1,0 +1,22 @@
+============================
+Atomic Data
+============================
+
+
+---------------------------
+Atomic Data Files
+---------------------------
+
+.. list-table:: Atomic Data Files
+        :widths: 15,10,40
+        :header-rows: 1
+        
+        * - parameter
+          - values
+          - definition
+        * - data_atomic_file
+          - <string>
+          - path (relative or absolute) to the atomdata file
+        * - data_fuzzline_file
+          - <string>
+          - path to the fuzzline file to be able to include the fuzz expansion opacity

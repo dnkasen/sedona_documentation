@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Basic Code Execution &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Checkpoints" href="checkpoints.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="basic-code-execution">
+<h1>Basic Code Execution<a class="headerlink" href="#basic-code-execution" title="Permalink to this headline">¶</a></h1>
+<p>Several example setups for different sorts of science runs are given in the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> directory. Simpler tests are in the <code class="docutils literal notranslate"><span class="pre">tests/</span></code> directory.</p>
+<p><strong>sedona</strong> everywhere uses cgs units.</p>
+<div class="section" id="input-model-files">
+<span id="model-files"></span><h2>Input Model Files<a class="headerlink" href="#input-model-files" title="Permalink to this headline">¶</a></h2>
+<p>Model file set the density, composition, temperature at each</p>
+</div>
+<div class="section" id="setting-runtime-parameters">
+<span id="parameter-files"></span><h2>Setting Runtime Parameters<a class="headerlink" href="#setting-runtime-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Runtime parameters are currently set in the param file, by default is assumed to be
+called <strong>param.lua</strong></p>
+<p>The parameter files uses the Lua scripting language, which allows for
+using math expressions and function calls (may be replaced with a python option).
+One can also grab environment variables using, e.g.,:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sedona_home</span>   <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SEDONA_HOME&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which sets the local variable <strong>sedona_home</strong> based on the environment variable <strong>$SEDONA_HOME</strong>.</p>
+<p>Default values of all parameters are set in a <strong>defaults</strong> file, which is also in
+the Lua language. The <strong>param.lua</strong> file must point to the defaults file using, e.g.,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">defaults_file</span>    <span class="o">=</span> <span class="n">sedona_home</span><span class="o">..</span><span class="s2">&quot;/defaults/sedona_defaults.lua&quot;</span>
+</pre></div>
+</div>
+<p>This points to the standard defaults file provided with <strong>sedona</strong>. (N.B. the .. notation means string concatenation in Lua)</p>
+<p>Scalar parameters are set as e.g.,:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tstep_time_stop</span>  <span class="o">=</span> <span class="mf">100.0</span>
+</pre></div>
+</div>
+<p>String parameters (such as filenames) are set using quotes, e.g.,:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_module</span> <span class="o">=</span> <span class="s2">&quot;monte_carlo&quot;</span>
+</pre></div>
+</div>
+<p>Vectors parameters are currently set as e.g.,:</p>
+<blockquote>
+<div>spectrum_nu_grid   = {start,stop,delta}</div></blockquote>
+<p>where gives a uniform vector between values <strong>start</strong> and <strong>stop</strong> with spacing <strong>delta</strong>.
+To use a logarithmically spaced grid, we add an extra entry of 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spectrum_nu_grid</span>   <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">,</span><span class="n">delta</span><span class="p">,</span><span class="mi">1</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>where now the spacing between points is dx = x*delta</p>
+</div>
+<div class="section" id="controlling-time-evolution">
+<h2>Controlling Time Evolution<a class="headerlink" href="#controlling-time-evolution" title="Permalink to this headline">¶</a></h2>
+<p>Calculations in <strong>sedona</strong> can be run either as time evolving or steady-state models.
+This is controlled by time-stepping parameters</p>
+<table border="1" class="colwidths-given docutils" id="id1">
+<caption><span class="caption-text">Time Stepping Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="23%" />
+<col width="15%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tstep_max_steps</td>
+<td>&lt;integer&gt;</td>
+<td>Maximum number of time steps to take before exiting</td>
+</tr>
+<tr class="row-odd"><td>tstep_time_start</td>
+<td>&lt;real&gt;</td>
+<td>Start time (in seconds)</td>
+</tr>
+<tr class="row-even"><td>tstep_time_stop</td>
+<td>&lt;real&gt;</td>
+<td>Stop time (in seconds)</td>
+</tr>
+<tr class="row-odd"><td>tstep_max_dt</td>
+<td>&lt;real&gt;</td>
+<td>Maximum value of a time step (in seconds)</td>
+</tr>
+<tr class="row-even"><td>tstep_min_dt</td>
+<td>&lt;real&gt;</td>
+<td>Minimum value of a time step (in seconds)</td>
+</tr>
+<tr class="row-odd"><td>tstep_max_delta</td>
+<td>&lt;real&gt;</td>
+<td>Maximum fractional size of a timestep, restricts dt to the specified value multiplied by the current time</td>
+</tr>
+</tbody>
+</table>
+<p>Times are always in seconds.</p>
+</div>
+<div class="section" id="output-files">
+<h2>Output Files<a class="headerlink" href="#output-files" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sedona6</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Code Execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-model-files">Input Model Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-runtime-parameters">Setting Runtime Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#controlling-time-evolution">Controlling Time Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-files">Output Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="getting_started.html" title="previous chapter">Getting Started</a></li>
+      <li>Next: <a href="checkpoints.html" title="next chapter">Checkpoints</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, D. Kasen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/code_execution.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

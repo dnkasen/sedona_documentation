@@ -1,0 +1,587 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>All Runtime Parameters &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python Tools" href="python_tools.html" />
+    <link rel="prev" title="Plotting and Data Visualization" href="plotting.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="all-runtime-parameters">
+<h1>All Runtime Parameters<a class="headerlink" href="#all-runtime-parameters" title="Permalink to this headline">¶</a></h1>
+<p><strong>sedona</strong> uses cgs units everywhere</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="colwidths-given docutils" id="id1">
+<caption><span class="caption-text">Radiating Core Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="23%" />
+<col width="15%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>core_n_emit</td>
+<td>&lt;integer&gt;</td>
+<td>Number of particles to emit from core per time step (or iteration)</td>
+</tr>
+<tr class="row-odd"><td>core_radius</td>
+<td>&lt;real&gt;</td>
+<td>Radius (in cm) of emitting spherical core</td>
+</tr>
+<tr class="row-even"><td>core_luminosity</td>
+<td>&lt;real&gt; or &lt;function&gt;</td>
+<td>Luminosity (in erg/s) emitted from core</td>
+</tr>
+<tr class="row-odd"><td>core_temperature</td>
+<td>&lt;real&gt;</td>
+<td>Blackbody spectrum of core emission, if using blackbody emission</td>
+</tr>
+<tr class="row-even"><td>core_photon_frequency</td>
+<td>&lt;real&gt;</td>
+<td>Frequency of photons emitted from core, if using monochromatic emission</td>
+</tr>
+<tr class="row-odd"><td>core_timescale</td>
+<td>&lt;real&gt;</td>
+<td>?</td>
+</tr>
+<tr class="row-even"><td>core_spectrum_file</td>
+<td>&lt;string&gt;</td>
+<td>filename of file to read to set spectrum of core emission</td>
+</tr>
+<tr class="row-odd"><td>core_fix_luminosity</td>
+<td>0 = no | 1 = yes</td>
+<td>In steady state calculations, will rescale to fix output luminosity</td>
+</tr>
+<tr class="row-even"><td>particles_max_total</td>
+<td>&lt;float&gt;</td>
+<td>maximum number of particles (photons) allowed on the grid at the same time</td>
+</tr>
+<tr class="row-odd"><td>particles_n_emit_radioactive</td>
+<td>&lt;integer&gt;</td>
+<td>number of particles emitted through radioactivity per timestep</td>
+</tr>
+<tr class="row-even"><td>particles_n_emit_thermal</td>
+<td>&lt;integer&gt;</td>
+<td>number of thermal particles emitted per timestep</td>
+</tr>
+<tr class="row-odd"><td>particles_n_initialize</td>
+<td>&lt;integer&gt;</td>
+<td>number of particles used to initialize the simulation</td>
+</tr>
+<tr class="row-even"><td>particles_n_emit_pointsources</td>
+<td>&lt;integer&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>particles_pointsource_file</td>
+<td>&lt;string&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>particles_last_iter_pump</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>multiply_particles_n_emit_by_dt_over_dtmax</td>
+<td>0 = no | 1 = yes</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>force_rprocess_heating</td>
+<td>0 = no | 1 = yes</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">Checkpoint Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="23%" />
+<col width="15%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>run_do_restart</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>run_do_checkpoint</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>run_do_checkpoint_test</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>run_restart_file</td>
+<td>&lt;string&gt;</td>
+<td>File to restart from (ie.  something like chk.h5)</td>
+</tr>
+<tr class="row-even"><td>run_checkpoint_name_base</td>
+<td>&lt;string&gt;</td>
+<td>pattern for the checkpoint file names</td>
+</tr>
+<tr class="row-odd"><td>run_chk_timestep_interval</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>run_chk_walltime_interval</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>run_chk_simtime_interval</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>run_chk_walltime_max_buffer</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>run_chk_walltime_max</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>run_chk_number_start</td>
+<td>&#160;</td>
+<td>number of first checkpoint file</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">Time Stepping Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="23%" />
+<col width="15%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tstep_max_steps</td>
+<td>&lt;integer&gt;</td>
+<td>Maximum number of time steps to take before exiting</td>
+</tr>
+<tr class="row-odd"><td>tstep_time_start</td>
+<td>&lt;real&gt;</td>
+<td>Start time (in seconds)</td>
+</tr>
+<tr class="row-even"><td>tstep_time_stop</td>
+<td>&lt;real&gt;</td>
+<td>Stop time (in seconds)</td>
+</tr>
+<tr class="row-odd"><td>tstep_max_dt</td>
+<td>&lt;real&gt;</td>
+<td>Maximum value of a time step (in seconds)</td>
+</tr>
+<tr class="row-even"><td>tstep_min_dt</td>
+<td>&lt;real&gt;</td>
+<td>Minimum value of a time step (in seconds)</td>
+</tr>
+<tr class="row-odd"><td>tstep_max_delta</td>
+<td>&lt;real&gt;</td>
+<td>Maximum fractional size of a timestep, restricts dt to the specified value multiplied by the current time</td>
+</tr>
+</tbody>
+</table>
+<p>Times are always in seconds.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">Hydrodynamics Parameters</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="23%" />
+<col width="15%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>hydro_module</td>
+<td>&lt;string&gt;</td>
+<td>choose hydro module to evolve rho and T, options are homologous, none, 1D_lagrangian</td>
+</tr>
+<tr class="row-odd"><td>hydro_gamma_index</td>
+<td>&lt;float&gt;</td>
+<td>gamma used in the eos</td>
+</tr>
+<tr class="row-even"><td>hydro_mean_particle_mass</td>
+<td>&lt;float&gt;</td>
+<td>mean particle mass mu, mass = mu * proton mass</td>
+</tr>
+<tr class="row-odd"><td>hydro_cfl</td>
+<td>&lt;float&gt;</td>
+<td>cfl parameter used in hydro simulation to control time steps</td>
+</tr>
+<tr class="row-even"><td>hydro_v_piston</td>
+<td>&lt;float&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>hydro_viscosity_parameter</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>hydro_central_point_mass</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>hydro_use_gravity</td>
+<td>&#160;</td>
+<td>Whether to include gravity for the hydro simulation</td>
+</tr>
+<tr class="row-even"><td>hydro_use_transport</td>
+<td>0 = no | 1 = yes</td>
+<td>Whether to use radiation transport (?)</td>
+</tr>
+<tr class="row-odd"><td>hydro_accrete_radius</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>hydro_bomb_radius</td>
+<td>&lt;float&gt;</td>
+<td>Radius of the bomb in cm</td>
+</tr>
+<tr class="row-odd"><td>hydro_bomb_energy</td>
+<td>&lt;float&gt;</td>
+<td>Energy of the bomb in erg</td>
+</tr>
+<tr class="row-even"><td>hydro_boundary_outflow</td>
+<td>0 = no | 1 = yes</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>hydro_boundary_rigid_outer_wall</td>
+<td>0 = no | 1 = yes</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">Atomic Data Files</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="23%" />
+<col width="15%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data_atomic_file</td>
+<td>&lt;string&gt;</td>
+<td>path (relative or absolute) to the atomdata file</td>
+</tr>
+<tr class="row-odd"><td>data_fuzzline_file</td>
+<td>&lt;string&gt;</td>
+<td>path to the fuzzline file to be able to include the fuzz expansion opacity</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">Radiation Transport Parameters</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="23%" />
+<col width="15%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>transport_module</td>
+<td>“monte_carlo”</td>
+<td>What method to use for transport. Currently only monte carlo is implemented.</td>
+</tr>
+<tr class="row-odd"><td>transport_nu_grid</td>
+<td>&lt;float vector&gt;</td>
+<td>Define frequency grid used for transport and opacities</td>
+</tr>
+<tr class="row-even"><td>transport_radiative_equilibrium</td>
+<td>0 = no | 1 = yes</td>
+<td>Whether to solve for radiative equilibrium</td>
+</tr>
+<tr class="row-odd"><td>transport_steady_iterate</td>
+<td>&lt;integer&gt;</td>
+<td>Do a steady-state calculation with this number of iterations</td>
+</tr>
+<tr class="row-even"><td>transport_boundary_in_reflect</td>
+<td>0 = no | 1 = yes</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>transport_boundary_out_reflect</td>
+<td>0 = no | 1 = yes</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>transport_store_Jnu</td>
+<td>0 = no | 1 = yes</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>transport_use_ddmc</td>
+<td>0 = no | 1 = yes</td>
+<td>Whether to use discrete diffusion monte carlo</td>
+</tr>
+<tr class="row-even"><td>transport_ddmc_tau_threshold</td>
+<td>&lt;float&gt;</td>
+<td>At what optical depth ddmc takes over</td>
+</tr>
+<tr class="row-odd"><td>transport_fleck_alpha</td>
+<td>&lt;float&gt;</td>
+<td>fleck alpha parameter (needs to be between 0.5 and 1 for ddmc)</td>
+</tr>
+<tr class="row-even"><td>transport_solve_Tgas_with_updated_opacities</td>
+<td>0 = no | 1 = yes</td>
+<td>whether to solve for Tgas after updating opacities</td>
+</tr>
+<tr class="row-odd"><td>transport_fix_Tgas_during_transport</td>
+<td>0 = no | 1 = yes</td>
+<td>whether to fix Tgas</td>
+</tr>
+<tr class="row-even"><td>transport_set_Tgas_to_Trad</td>
+<td>0 = no | 1 = yes</td>
+<td>whether to set Tgas to Trad instead of solving for it</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">Opacity parameters</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="29%" />
+<col width="14%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>opacity_grey_opacity</td>
+<td>&lt;real&gt;</td>
+<td>value of grey opacity to use (in cm^2/g). Will override all other opacity settings</td>
+</tr>
+<tr class="row-odd"><td>opacity_zone_dependent_grey_opacity</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>opacity_user_defined</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_epsilon</td>
+<td>&lt;float&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>opacity_atom_zero_epsilon</td>
+<td>&lt;float (?) vector&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_electron_scattering</td>
+<td>0 = no | 1 = yes</td>
+<td>include electron scattering opacity</td>
+</tr>
+<tr class="row-even"><td>opacity_line_expansion</td>
+<td>0 = no | 1 = yes</td>
+<td>include binned line expansion opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_fuzz_expansion</td>
+<td>0 = no | 1 = yes</td>
+<td>include binned line expansion opacity, taken from a fuzz file</td>
+</tr>
+<tr class="row-even"><td>opacity_bound_free</td>
+<td>0 = no | 1 = yes</td>
+<td>include bound-free (photoionization) opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_free_free</td>
+<td>0 = no | 1 = yes</td>
+<td>include free-free opacity</td>
+</tr>
+<tr class="row-even"><td>opacity_bound_bound</td>
+<td>0 = no | 1 = yes</td>
+<td>include bound-bound (resolved line) opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_use_nlte</td>
+<td>0 = no | 1 = yes</td>
+<td>include nlte opacity</td>
+</tr>
+<tr class="row-even"><td>opacity_atoms_in_nlte</td>
+<td>&lt;float (?) vector&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_use_collisions_nlte</td>
+<td>0 = no | 1 = yes</td>
+<td>only matters if use_nlte == 1, include collisions for nlte calculations</td>
+</tr>
+<tr class="row-even"><td>opacity_no_ground_recomb</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_minimum_extinction</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>opacity_maximum_opacity</td>
+<td>&lt;float&gt;</td>
+<td>upper limit on opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_no_scattering</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>dont_decay_composition</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_compton_scatter_photons</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>line_velocity_width</td>
+<td>&lt;float&gt;</td>
+<td>velocity in cm/s used to doppler broaden the (bound bound?) lines</td>
+</tr>
+<tr class="row-odd"><td>line_x_extent</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sedona6</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">All Runtime Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="plotting.html" title="previous chapter">Plotting and Data Visualization</a></li>
+      <li>Next: <a href="python_tools.html" title="next chapter">Python Tools</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, D. Kasen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/all_parameters.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,185 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sedona6 Users Guide &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="sedona6-users-guide">
+<h1>Sedona6 Users Guide<a class="headerlink" href="#sedona6-users-guide" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#installing-the-code">Installing the Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-the-code">Running the Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="code_execution.html#input-model-files">Input Model Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_execution.html#setting-runtime-parameters">Setting Runtime Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_execution.html#controlling-time-evolution">Controlling Time Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_execution.html#output-files">Output Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radiation_transport.html#controlling-transport">Controlling Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiation_transport.html#controlling-output">Controlling Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiation_transport.html#interaction-processes">Interaction Processes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sources.html#radioactivity">Radioactivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sources.html#thermal-emission">Thermal Emission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sources.html#radiating-core">Radiating Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sources.html#multiple-point-sources">Multiple Point Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomic_data.html#atomic-data-files">Atomic Data Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#opacity-settings">Opacity Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#grey-opacity">Grey Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#electron-scattering-opacity">Electron Scattering Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#bound-free-opacity">Bound-Free Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#free-free-opacity">Free-Free Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#line-opacity">Line Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#lte-and-nlte-settings">LTE and NLTE settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hydrodynamics.html#homologous-expansion">Homologous Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hydrodynamics.html#lagrangian-hydrodynamics">Lagrangian Hydrodynamics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#generating-synthetic-light-curves">Generating Synthetic Light Curves</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_tools.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_tools.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_tools.html#file-handling">File Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_tools.html#tools">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_tools.html#plotting">Plotting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Sedona6</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="getting_started.html" title="next chapter">Getting Started</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, D. Kasen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

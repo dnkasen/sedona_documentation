@@ -1,0 +1,156 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Plotting and Data Visualization &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="All Runtime Parameters" href="all_parameters.html" />
+    <link rel="prev" title="Hydrodynamics" href="hydrodynamics.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="plotting-and-data-visualization">
+<h1>Plotting and Data Visualization<a class="headerlink" href="#plotting-and-data-visualization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="generating-synthetic-light-curves">
+<h2>Generating Synthetic Light Curves<a class="headerlink" href="#generating-synthetic-light-curves" title="Permalink to this headline">¶</a></h2>
+<p>Sedona default outputs a file called <em>spectrum.h5</em> that gives the time series of the light curve <img class="math" src="_images/math/b98aa9e05b82012829168a14cb7e3c0a68863895.png" alt="L_{\{\nu\}}(\{t\})"/> at frequencies <img class="math" src="_images/math/82be5057834728dc28ce438282209c95b450594e.png" alt="\{\nu\}"/> and output times <img class="math" src="_images/math/07576117fd153bd29bdd24da203b608e8d8eb83a.png" alt="\{t\}"/>.</p>
+<blockquote>
+<div>The bolometric luminosity is simply given as</div></blockquote>
+<div class="math">
+<p><img src="_images/math/68454cdf3d95dbd13f52d03ef692eaa24410cd7d.png" alt="L_{bol}(\{t\}) = \int_{\{\nu\}}L_{\{\nu\}}(\{t\})\,d\nu"/></p>
+</div><p>Similarly, the absolute bolometric magnitude is given as</p>
+<div class="math">
+<p><img src="_images/math/8a9b31d369ec1fb4bb28d732f44c64bbf035e205.png" alt="M_{bol} = -2.5\log_{10}L_{bol} + 88.697425"/></p>
+</div><p>In order to get light curves in certain filters, you have to convolve it with a given transmission curve.</p>
+<blockquote>
+<div>If <img class="math" src="_images/math/4d658abfdd4713f86a8c7183f98e6f928e41edf4.png" alt="T_b(\nu)"/> is the transmission for a given filter band at frequency <img class="math" src="_images/math/ca3b8fa4180eee2dfc3af9d13fae1da451cd2c31.png" alt="\nu"/>, then the luminosity convolved with the filter is expressed as</div></blockquote>
+<div class="math">
+<p><img src="_images/math/a1563a46caf38db1e5c2b2c1b02caa6bc4b7d9e1.png" alt="\mathcal{L}_\nu (b) = \frac{\int T_b(\nu)L_\nu\, d\ln\nu}{\int T_b(\nu)\,d\ln\nu}"/></p>
+</div><p>The formula to convert this to an AB magnitude is</p>
+<div class="math">
+<p><img src="_images/math/db69319dbad8c2843e80172c60d1a91a008ddecc.png" alt="M_{AB}(b) = -2.5\log_{10}\left(\frac{\mathcal{L}_\nu(b)}{4\pi d^2}\right)-48.600"/></p>
+</div><p>where <img class="math" src="_images/math/657e008e787c9a5b098a7ee589fab17848ea2b59.png" alt="d=10"/> pc is the standardized distance to convert to a flux.</p>
+<p>Note that <img class="math" src="_images/math/4d658abfdd4713f86a8c7183f98e6f928e41edf4.png" alt="T_b(\nu)"/> is here expressed as an energy-counting response.</p>
+<p>A script that generates synthetic light curves from the Sedona <em>spectrum.h5</em> file is provided in the directory <em>tools/lightcurve_tools</em>. The python program <em>lcfilt.py</em>
+takes as input a <em>spectrum.h5</em> file and a list of filters/bands and converts the raw spectrum output to light curves.</p>
+<p>To run, simply call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">lcfilt</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">spectrum</span><span class="o">.</span><span class="n">h5</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">b</span> <span class="o">&lt;</span><span class="n">band1</span><span class="p">,</span><span class="n">band2</span><span class="p">,</span><span class="o">...&gt;</span>
+</pre></div>
+</div>
+<p>where <em>spectrum.h5</em> points to the Sedona spectrum file, and <em>&lt;band1,band2,…&gt; is a comma-separated list of filters that you wish to make light curves in. For example, if I wanted to generate synthetic light curves of a file */path/to/supernova_spectra.h5</em> in the LSST bands, then one would call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">lcfilt</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">supernova_spectra</span><span class="o">.</span><span class="n">h5</span> <span class="o">-</span><span class="n">b</span> <span class="n">LSST_u</span><span class="p">,</span><span class="n">LSST_g</span><span class="p">,</span><span class="n">LSST_r</span><span class="p">,</span><span class="n">LSST_i</span><span class="p">,</span><span class="n">LSST_z</span><span class="p">,</span><span class="n">LSST_y</span>
+</pre></div>
+</div>
+<p>The light curve table is outputted in the file <em>lightcurve.out</em> and gives the time, bolometric luminosity, bolometric magnitude, and absolute magnitudes in the specified bands, using the AB magnitude system.</p>
+<p>A full list of filters can be accessed by calling:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">lcfilt</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">bands</span>
+</pre></div>
+</div>
+<p>or by examining the file <em>FILTER_LIST</em>, which also contains references for the filters.</p>
+<p>To add a filter not provided, add an entry to the end of <em>FILTER_LIST</em> and append the transmission curve (in Angstroms and relative response) to the <strong>end</strong> of <em>allfilters.dat</em>.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sedona6</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting and Data Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generating-synthetic-light-curves">Generating Synthetic Light Curves</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="hydrodynamics.html" title="previous chapter">Hydrodynamics</a></li>
+      <li>Next: <a href="all_parameters.html" title="next chapter">All Runtime Parameters</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, D. Kasen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/plotting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
