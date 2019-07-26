@@ -63,40 +63,6 @@ should really be under tstep, since it controls time evolution
 not transport per se.
 
 
----------------------------
-Controlling Output
----------------------------
-
-Spectrum files and writeout files
-
-
-.. list-table:: Output Radiation Parameters
-        :widths: 15,10,40
-        :header-rows: 1
-        
-        * - parameter
-          - values
-          - definition
-        * - spectrum_name
-          - <string>
-          - name of the spectrum files, if output_write_radiation is enabled
-        * - spectrum_time_grid
-          - <float vector>
-          - time grid for the spectrum file
-        * - spectrum_nu_grid
-          - <float vector>
-          - frequency grid for the spectrum file
-        * - spectrum_n_mu
-          - <integer>
-          - number of evenly spaced mu (viewing angles in theta (polar coord.) direction mu = cos theta)
-        * - spectrum_n_phi
-          - <integer>
-          - number of evenly spaced phi (viewing angles in phi (polar coord.) direction)
-        * - gamma_name
-          - <string>
-          -
-        * - gamma_nu_grid
-          - <float vector>
           -
 
 -------------------------

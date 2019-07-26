@@ -3,6 +3,20 @@ Hydrodynamics
 ======================
 
 
+
+------------------------------
+Homologous Expansion
+------------------------------
+
+
+
+------------------------------
+Lagrangian Hydrodynamics
+------------------------------
+
+
+
+
 .. list-table:: Hydrodynamics Parameters
         :widths: 15,10,40
         :header-rows: 1
@@ -52,16 +66,3 @@ Hydrodynamics
         * - hydro_boundary_rigid_outer_wall
           - 0 = no | 1 = yes
           -
-
-
-
-
-------------------------------
-Homologous Expansion
-------------------------------
-
-
-
-------------------------------
-Lagrangian Hydrodynamics
-------------------------------

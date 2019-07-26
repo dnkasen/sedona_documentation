@@ -13,7 +13,6 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting Started" href="getting_started.html" />
@@ -43,17 +42,25 @@
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-the-code">Running the Code</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="code_execution.html#input-model-files">Input Model Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="code_execution.html#setting-runtime-parameters">Setting Runtime Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="code_execution.html#controlling-time-evolution">Controlling Time Evolution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="code_execution.html#output-files">Output Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_files.html">Input  Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="input_files.html#parameter-files">Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="input_files.html#model-files">Model Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="input_files.html#atomic-data-files">Atomic Data Files</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_files.html">Output Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="output_files.html#spectrum-files">Spectrum Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="output_files.html#plt-files">Plt Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="output_files.html#checkpoint-files">Checkpoint Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="code_execution.html#time-dependent-calculations">Time Dependent Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_execution.html#steady-state-calculations">Steady State Calculations</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="radiation_transport.html#controlling-transport">Controlling Transport</a></li>
-<li class="toctree-l2"><a class="reference internal" href="radiation_transport.html#controlling-output">Controlling Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="radiation_transport.html#interaction-processes">Interaction Processes</a></li>
 </ul>
 </li>
@@ -64,21 +71,15 @@
 <li class="toctree-l2"><a class="reference internal" href="sources.html#multiple-point-sources">Multiple Point Sources</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="atomic_data.html#atomic-data-files">Atomic Data Files</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="opacity.html#opacity-settings">Opacity Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opacity.html#grey-opacity">Grey Opacity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="opacity.html#electron-scattering-opacity">Electron Scattering Opacity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="opacity.html#bound-free-opacity">Bound-Free Opacity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="opacity.html#free-free-opacity">Free-Free Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#continuum-opacities">Continuum opacities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opacity.html#line-opacity">Line Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#user-defined-opacity">User Defined Opacity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opacity.html#lte-and-nlte-settings">LTE and NLTE settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html#opacity-parameters">Opacity Parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="hydrodynamics.html#homologous-expansion">Homologous Expansion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hydrodynamics.html#lagrangian-hydrodynamics">Lagrangian Hydrodynamics</a></li>
@@ -97,6 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="python_tools.html#plotting">Plotting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Adding Documentation</a></li>
 </ul>
 </div>
 </div>
@@ -129,17 +131,17 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_files.html">Input  Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_files.html">Output Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Adding Documentation</a></li>
 </ul>
 
 <div class="relations">
@@ -162,6 +164,14 @@
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -170,8 +180,8 @@
       &copy;2018, D. Kasen.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/index.rst.txt"

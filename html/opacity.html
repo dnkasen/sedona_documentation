@@ -1,0 +1,320 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Opacity &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NLTE" href="nlte.html" />
+    <link rel="prev" title="Atomic Data" href="atomic_data.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="opacity">
+<h1>Opacity<a class="headerlink" href="#opacity" title="Permalink to this headline">¶</a></h1>
+<p>There are several options for calculating and controlling the opacity
+of the gas in the calculation.</p>
+<p>Though we generally use the word “opacity”, the code actually calculates and stores an extinction coefficient.
+The two are related by</p>
+<div class="math">
+<p><img src="_images/math/38af2b9d7186cd3ad7a16035f278b942769cd903.png" alt="\alpha = \kappa \rho"/></p>
+</div><p>where
+<img class="math" src="_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/> is the extinction coefficient (units cm:math:<cite>^{-1}</cite>),
+<img class="math" src="_images/math/e18d839a0e889a07a4e7a17bed70fe453966c6df.png" alt="\kappa"/> is the opacity (units cm:math:<cite>^{2}</cite> g:math:<cite>^{-1}</cite>),
+and <img class="math" src="_images/math/9a51ab9a0b521705e1e8762fac6bdd6f11771758.png" alt="\rho"/> is the mass density</p>
+<div class="section" id="opacity-settings">
+<h2>Opacity Settings<a class="headerlink" href="#opacity-settings" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="colwidths-given docutils" id="id1">
+<caption><span class="caption-text">Opacity parameters</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="29%" />
+<col width="14%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">parameter</th>
+<th class="head">values</th>
+<th class="head">definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>opacity_grey_opacity</td>
+<td>&lt;real&gt;</td>
+<td>value of grey opacity to use (in cm^2/g). Will override all other opacity settings</td>
+</tr>
+<tr class="row-odd"><td>opacity_zone_dependent_grey_opacity</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>opacity_user_defined</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_epsilon</td>
+<td>&lt;float&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>opacity_atom_zero_epsilon</td>
+<td>&lt;float (?) vector&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_electron_scattering</td>
+<td>0 = no | 1 = yes</td>
+<td>include electron scattering opacity</td>
+</tr>
+<tr class="row-even"><td>opacity_line_expansion</td>
+<td>0 = no | 1 = yes</td>
+<td>include binned line expansion opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_fuzz_expansion</td>
+<td>0 = no | 1 = yes</td>
+<td>include binned line expansion opacity, taken from a fuzz file</td>
+</tr>
+<tr class="row-even"><td>opacity_bound_free</td>
+<td>0 = no | 1 = yes</td>
+<td>include bound-free (photoionization) opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_free_free</td>
+<td>0 = no | 1 = yes</td>
+<td>include free-free opacity</td>
+</tr>
+<tr class="row-even"><td>opacity_bound_bound</td>
+<td>0 = no | 1 = yes</td>
+<td>include bound-bound (resolved line) opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_use_nlte</td>
+<td>0 = no | 1 = yes</td>
+<td>include nlte opacity</td>
+</tr>
+<tr class="row-even"><td>opacity_atoms_in_nlte</td>
+<td>&lt;float (?) vector&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_use_collisions_nlte</td>
+<td>0 = no | 1 = yes</td>
+<td>only matters if use_nlte == 1, include collisions for nlte calculations</td>
+</tr>
+<tr class="row-even"><td>opacity_no_ground_recomb</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_minimum_extinction</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>opacity_maximum_opacity</td>
+<td>&lt;float&gt;</td>
+<td>upper limit on opacity</td>
+</tr>
+<tr class="row-odd"><td>opacity_no_scattering</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>dont_decay_composition</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>opacity_compton_scatter_photons</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>line_velocity_width</td>
+<td>&lt;float&gt;</td>
+<td>velocity in cm/s used to doppler broaden the (bound bound?) lines</td>
+</tr>
+<tr class="row-odd"><td>line_x_extent</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="grey-opacity">
+<h2>Grey Opacity<a class="headerlink" href="#grey-opacity" title="Permalink to this headline">¶</a></h2>
+<p>The grey opacity flags allow the user to specify a simple,
+wavelength-independent opacity. This can be done in two ways.</p>
+<p>To set a uniform grey opacity at all points in space, set the parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opacity_grey_opacity</span> <span class="o">=</span> <span class="mf">0.1</span>
+</pre></div>
+</div>
+<p>where, in this example, the code will set the
+value <img class="math" src="_images/math/6f4a9a1823a977a59ada59e47bbd88dbc48b5761.png" alt="\kappa_{g} = 0.1"/> cm:math:<cite>^{2}</cite> g:math:<cite>^{-1}</cite>
+to all zones in the model. All other sources of opacity discussed below
+(e.g., free-free, bound-free) will be ignored.</p>
+<p>The user can set a spatially varying</p>
+</div>
+<div class="section" id="electron-scattering-opacity">
+<h2>Electron Scattering Opacity<a class="headerlink" href="#electron-scattering-opacity" title="Permalink to this headline">¶</a></h2>
+<p>This is calculated as</p>
+<div class="math">
+<p><img src="_images/math/e6b1222777d239e58a45306ee4ac2c059bf519c2.png" alt="\alpha_{\rm es} = \sigma_t n_e"/></p>
+</div><p>where <img class="math" src="_images/math/493e3b4c79402433c6895e3e0e60a80fe45846a3.png" alt="n_e"/> is the free electron density</p>
+<p>Options for include Klein-Nishina corrections, Comptonization etc…</p>
+</div>
+<div class="section" id="bound-free-opacity">
+<h2>Bound-Free Opacity<a class="headerlink" href="#bound-free-opacity" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="free-free-opacity">
+<h2>Free-Free Opacity<a class="headerlink" href="#free-free-opacity" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="line-opacity">
+<h2>Line Opacity<a class="headerlink" href="#line-opacity" title="Permalink to this headline">¶</a></h2>
+<p>There are various options for treating lines. In general, only one of these approaches
+should be used to treat lines, unless one can be certain that line opacity is not be
+multiply counted.</p>
+<div class="section" id="resolved-line-profiles">
+<h3>Resolved Line Profiles<a class="headerlink" href="#resolved-line-profiles" title="Permalink to this headline">¶</a></h3>
+<p>This approach is selecting by setting the runtime parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opacity_bound_bound</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>This approach treats the lines generally as Voigt profiles. The frequency good must be
+fine enough that there are multiple grid points across to resolve the line profile.</p>
+<p>The widths of lines can be artificially broadened using the runtime parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">line_velocity_width</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">real</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where &lt;real&gt; is a velocity (in cm/s) by which the lines should be Gaussian broadened.</p>
+</div>
+<div class="section" id="line-expansion-opacity">
+<h3>Line Expansion Opacity<a class="headerlink" href="#line-expansion-opacity" title="Permalink to this headline">¶</a></h3>
+<p>This approach is selected by setting the runtime parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opacity_line_expansion</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>This approach bins lines into frequency bins, assuming a homologous flow.</p>
+<p>This approach implies the Sobolev approximation. For each line, the code calculates the Sobolev optical depth</p>
+<div class="math">
+<p><img src="_images/math/73bb07773ac26a3329457476776db5ccce8093de.png" alt="\tau_{\rm sob} = \frac{ \pi e^2}{m_e c} n_l f_{lu} \lambda_0 t_{\rm exp}"/></p>
+</div><p>where…</p>
+<p>The expansion opacity is then calculated by binning lines</p>
+<div class="math">
+<p><img src="_images/math/3a01ffb6198b9682630021fee471021a86d983f7.png" alt="\alpha_{\rm exp} = \frac{1}{c t_{\rm exp}} \frac{\lambda_0}{\Delta \lambda} \sum_i (1 - e^{-\tau_i})"/></p>
+</div></div>
+<div class="section" id="fuzz-expansion-opacity">
+<h3>Fuzz Expansion Opacity<a class="headerlink" href="#fuzz-expansion-opacity" title="Permalink to this headline">¶</a></h3>
+<p>This approach is selected by setting the runtime parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opacity_fuzz_expansion</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The physics here is identical to that of line expansion opacity, it is
+just that the lines are read from an independent file.</p>
+</div>
+<div class="section" id="resonant-line-scattering">
+<h3>Resonant Line Scattering<a class="headerlink" href="#resonant-line-scattering" title="Permalink to this headline">¶</a></h3>
+<p>This is how we would treat scattering in strong individual lines like Lyman alpha.</p>
+</div>
+</div>
+<div class="section" id="lte-and-nlte-settings">
+<h2>LTE and NLTE settings<a class="headerlink" href="#lte-and-nlte-settings" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sedona6</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Opacity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#opacity-settings">Opacity Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grey-opacity">Grey Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#electron-scattering-opacity">Electron Scattering Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bound-free-opacity">Bound-Free Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#free-free-opacity">Free-Free Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#line-opacity">Line Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lte-and-nlte-settings">LTE and NLTE settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="atomic_data.html" title="previous chapter">Atomic Data</a></li>
+      <li>Next: <a href="nlte.html" title="next chapter">NLTE</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, D. Kasen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/opacity.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

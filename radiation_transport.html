@@ -13,11 +13,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Radiation Sources" href="sources.html" />
-    <link rel="prev" title="Checkpoints" href="checkpoints.html" />
+    <link rel="prev" title="Basic Code Execution" href="code_execution.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -110,54 +109,11 @@
 .. ?
 should really be under tstep, since it controls time evolution
 not transport per se.</p>
-</div>
-<div class="section" id="controlling-output">
-<h2>Controlling Output<a class="headerlink" href="#controlling-output" title="Permalink to this headline">¶</a></h2>
-<p>Spectrum files and writeout files</p>
-<table border="1" class="colwidths-given docutils" id="id2">
-<caption><span class="caption-text">Output Radiation Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="23%" />
-<col width="15%" />
-<col width="62%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">parameter</th>
-<th class="head">values</th>
-<th class="head">definition</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>spectrum_name</td>
-<td>&lt;string&gt;</td>
-<td>name of the spectrum files, if output_write_radiation is enabled</td>
-</tr>
-<tr class="row-odd"><td>spectrum_time_grid</td>
-<td>&lt;float vector&gt;</td>
-<td>time grid for the spectrum file</td>
-</tr>
-<tr class="row-even"><td>spectrum_nu_grid</td>
-<td>&lt;float vector&gt;</td>
-<td>frequency grid for the spectrum file</td>
-</tr>
-<tr class="row-odd"><td>spectrum_n_mu</td>
-<td>&lt;integer&gt;</td>
-<td>number of evenly spaced mu (viewing angles in theta (polar coord.) direction mu = cos theta)</td>
-</tr>
-<tr class="row-even"><td>spectrum_n_phi</td>
-<td>&lt;integer&gt;</td>
-<td>number of evenly spaced phi (viewing angles in phi (polar coord.) direction)</td>
-</tr>
-<tr class="row-odd"><td>gamma_name</td>
-<td>&lt;string&gt;</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-even"><td>gamma_nu_grid</td>
-<td>&lt;float vector&gt;</td>
-<td>&#160;</td>
-</tr>
-</tbody>
-</table>
+<blockquote>
+<div><ul class="simple">
+<li></li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="interaction-processes">
 <h2>Interaction Processes<a class="headerlink" href="#interaction-processes" title="Permalink to this headline">¶</a></h2>
@@ -193,29 +149,28 @@ not transport per se.</p>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_files.html">Input  Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_files.html">Output Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Radiation Transport</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#controlling-transport">Controlling Transport</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#controlling-output">Controlling Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#interaction-processes">Interaction Processes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Adding Documentation</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="checkpoints.html" title="previous chapter">Checkpoints</a></li>
+      <li>Previous: <a href="code_execution.html" title="previous chapter">Basic Code Execution</a></li>
       <li>Next: <a href="sources.html" title="next chapter">Radiation Sources</a></li>
   </ul></li>
 </ul>
@@ -232,6 +187,14 @@ not transport per se.</p>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -240,8 +203,8 @@ not transport per se.</p>
       &copy;2018, D. Kasen.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/radiation_transport.rst.txt"

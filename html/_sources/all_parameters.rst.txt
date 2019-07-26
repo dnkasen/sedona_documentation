@@ -1,0 +1,346 @@
+===================================
+All Runtime Parameters
+===================================
+
+|sedona| uses cgs units everywhere
+
+|
+
+.. list-table:: Radiating Core Parameters
+        :widths: 15,10,40
+        :header-rows: 1
+        
+        * - parameter
+          - values
+          - definition
+        * - core_n_emit
+          - <integer>
+          - Number of particles to emit from core per time step (or iteration)
+        * - core_radius
+          - <real>
+          - Radius (in cm) of emitting spherical core
+        * - core_luminosity
+          - <real> or <function>
+          - Luminosity (in erg/s) emitted from core
+        * - core_temperature
+          - <real>
+          - Blackbody spectrum of core emission, if using blackbody emission
+        * - core_photon_frequency
+          - <real>
+          - Frequency of photons emitted from core, if using monochromatic emission
+        * - core_timescale
+          - <real>
+          - ?
+        * - core_spectrum_file
+          - <string>
+          - filename of file to read to set spectrum of core emission
+        * - core_fix_luminosity
+          - 0 = no | 1 = yes
+          - In steady state calculations, will rescale to fix output luminosity
+        * - particles_max_total
+          - <float>
+          - maximum number of particles (photons) allowed on the grid at the same time
+        * - particles_n_emit_radioactive
+          - <integer>
+          - number of particles emitted through radioactivity per timestep
+        * - particles_n_emit_thermal
+          - <integer>
+          - number of thermal particles emitted per timestep
+        * - particles_n_initialize
+          - <integer>
+          - number of particles used to initialize the simulation
+        * - particles_n_emit_pointsources
+          - <integer>
+          -
+        * - particles_pointsource_file
+          - <string>
+          -
+        * - particles_last_iter_pump
+          -
+          -
+        * - multiply_particles_n_emit_by_dt_over_dtmax
+          - 0 = no | 1 = yes
+          -
+        * - force_rprocess_heating
+          - 0 = no | 1 = yes
+          -
+
+
+|
+
+
+
+.. list-table:: Checkpoint Parameters
+        :widths: 15,10,40
+        :header-rows: 1
+
+        * - parameter
+          - values
+          - definition
+        * - run_do_restart
+          -
+          -
+        * - run_do_checkpoint
+          -
+          -
+        * - run_do_checkpoint_test
+          -
+          -
+        * - run_restart_file
+          - <string>
+          - File to restart from (ie.  something like chk.h5)
+        * - run_checkpoint_name_base
+          - <string>
+          - pattern for the checkpoint file names
+        * - run_chk_timestep_interval
+          -
+          -
+        * - run_chk_walltime_interval
+          -
+          -
+        * - run_chk_simtime_interval
+          -
+          -
+        * - run_chk_walltime_max_buffer
+          -
+          -
+        * - run_chk_walltime_max
+          -
+          -
+        * - run_chk_number_start
+          -
+          - number of first checkpoint file
+
+
+.. list-table:: Time Stepping Parameters
+        :widths: 15,10,40
+        :header-rows: 1
+        
+        * - parameter
+          - values
+          - definition
+        * - tstep_max_steps
+          - <integer>
+          - Maximum number of time steps to take before exiting
+        * - tstep_time_start
+          - <real>
+          - Start time (in seconds)
+        * - tstep_time_stop
+          - <real>
+          - Stop time (in seconds)
+        * - tstep_max_dt
+          - <real>
+          - Maximum value of a time step (in seconds)
+        * - tstep_min_dt
+          - <real>
+          - Minimum value of a time step (in seconds)
+        * - tstep_max_delta
+          - <real>
+          - Maximum fractional size of a timestep, restricts dt to the specified value multiplied by the current time
+
+Times are always in seconds.
+
+|
+
+
+
+.. list-table:: Hydrodynamics Parameters
+        :widths: 15,10,40
+        :header-rows: 1
+
+        * - parameter
+          - values
+          - definition
+        * - hydro_module
+          - <string>
+          - choose hydro module to evolve rho and T, options are homologous, none, 1D_lagrangian
+        * - hydro_gamma_index
+          - <float>
+          - gamma used in the eos
+        * - hydro_mean_particle_mass
+          - <float>
+          - mean particle mass mu, mass = mu * proton mass
+        * - hydro_cfl
+          - <float>
+          - cfl parameter used in hydro simulation to control time steps
+        * - hydro_v_piston
+          - <float>
+          -
+        * - hydro_viscosity_parameter
+          -
+          -
+        * - hydro_central_point_mass
+          -
+          -
+        * - hydro_use_gravity
+          -
+          - Whether to include gravity for the hydro simulation
+        * - hydro_use_transport
+          - 0 = no | 1 = yes
+          - Whether to use radiation transport (?)
+        * - hydro_accrete_radius
+          -
+          -
+        * - hydro_bomb_radius
+          - <float>
+          - Radius of the bomb in cm
+        * - hydro_bomb_energy
+          - <float>
+          - Energy of the bomb in erg
+        * - hydro_boundary_outflow
+          - 0 = no | 1 = yes
+          -
+        * - hydro_boundary_rigid_outer_wall
+          - 0 = no | 1 = yes
+          -
+
+|
+
+
+
+.. list-table:: Atomic Data Files
+        :widths: 15,10,40
+        :header-rows: 1
+        
+        * - parameter
+          - values
+          - definition
+        * - data_atomic_file
+          - <string>
+          - path (relative or absolute) to the atomdata file
+        * - data_fuzzline_file
+          - <string>
+          - path to the fuzzline file to be able to include the fuzz expansion opacity
+
+.. list-table:: Radiation Transport Parameters
+        :widths: 15,10,40
+        :header-rows: 1
+
+        * - parameter
+          - values
+          - definition
+        * - transport_module
+          - "monte_carlo"
+          - What method to use for transport. Currently only monte carlo is implemented.
+        * - transport_nu_grid
+          - <float vector>
+          - Define frequency grid used for transport and opacities
+        * - transport_radiative_equilibrium
+          - 0 = no | 1 = yes
+          - Whether to solve for radiative equilibrium
+        * - transport_steady_iterate
+          - <integer>
+          - Do a steady-state calculation with this number of iterations
+        * - transport_boundary_in_reflect
+          - 0 = no | 1 = yes
+          -
+        * - transport_boundary_out_reflect
+          - 0 = no | 1 = yes
+          -
+        * - transport_store_Jnu
+          - 0 = no | 1 = yes
+          -
+        * - transport_use_ddmc
+          - 0 = no | 1 = yes
+          - Whether to use discrete diffusion monte carlo
+        * - transport_ddmc_tau_threshold
+          - <float>
+          - At what optical depth ddmc takes over
+        * - transport_fleck_alpha
+          - <float>
+          - fleck alpha parameter (needs to be between 0.5 and 1 for ddmc)
+        * - transport_solve_Tgas_with_updated_opacities
+          - 0 = no | 1 = yes
+          - whether to solve for Tgas after updating opacities
+        * - transport_fix_Tgas_during_transport
+          - 0 = no | 1 = yes
+          - whether to fix Tgas
+        * - transport_set_Tgas_to_Trad
+          - 0 = no | 1 = yes
+          - whether to set Tgas to Trad instead of solving for it
+
+|
+
+
+
+
+
+.. list-table:: Opacity parameters
+        :header-rows: 1
+        :widths: 20,10,40
+        
+        * - parameter
+          - values
+          - definition
+        * - opacity_grey_opacity
+          - <real>
+          - value of grey opacity to use (in cm^2/g). Will override all other opacity settings
+        * - opacity_zone_dependent_grey_opacity
+          -
+          -
+        * - opacity_user_defined
+          -
+          -
+        * - opacity_epsilon
+          - <float>
+          -
+        * - opacity_atom_zero_epsilon
+          - <float (?) vector>
+          -
+        * - opacity_electron_scattering
+          - 0 = no | 1 = yes
+          - include electron scattering opacity
+        * - opacity_line_expansion
+          - 0 = no | 1 = yes
+          - include binned line expansion opacity
+        * - opacity_fuzz_expansion
+          - 0 = no | 1 = yes
+          - include binned line expansion opacity, taken from a fuzz file
+        * - opacity_bound_free
+          - 0 = no | 1 = yes
+          - include bound-free (photoionization) opacity
+        * - opacity_free_free
+          - 0 = no | 1 = yes
+          - include free-free opacity
+        * - opacity_bound_bound
+          - 0 = no | 1 = yes
+          - include bound-bound (resolved line) opacity
+        * - opacity_use_nlte
+          - 0 = no | 1 = yes
+          - include nlte opacity
+        * - opacity_atoms_in_nlte
+          - <float (?) vector>
+          -
+        * - opacity_use_collisions_nlte
+          - 0 = no | 1 = yes
+          - only matters if use_nlte == 1, include collisions for nlte calculations
+        * - opacity_no_ground_recomb
+          -
+          -
+        * - opacity_minimum_extinction
+          -
+          -
+        * - opacity_maximum_opacity
+          - <float>
+          - upper limit on opacity
+        * - opacity_no_scattering
+          -
+          -
+        * - dont_decay_composition
+          -
+          -
+        * - opacity_compton_scatter_photons
+          -
+          -
+        * - line_velocity_width
+          - <float>
+          - velocity in cm/s used to doppler broaden the (bound bound?) lines
+        * - line_x_extent
+          -
+          -
+
+..
+    line_profile                = "voigt"  does it even exist anymore?
+
+|
+

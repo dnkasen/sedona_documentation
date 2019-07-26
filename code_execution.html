@@ -13,11 +13,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Checkpoints" href="checkpoints.html" />
-    <link rel="prev" title="Getting Started" href="getting_started.html" />
+    <link rel="next" title="Radiation Transport" href="radiation_transport.html" />
+    <link rel="prev" title="Output Files" href="output_files.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -36,49 +35,8 @@
             
   <div class="section" id="basic-code-execution">
 <h1>Basic Code Execution<a class="headerlink" href="#basic-code-execution" title="Permalink to this headline">¶</a></h1>
-<p>Several example setups for different sorts of science runs are given in the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> directory. Simpler tests are in the <code class="docutils literal notranslate"><span class="pre">tests/</span></code> directory.</p>
-<p><strong>sedona</strong> everywhere uses cgs units.</p>
-<div class="section" id="input-model-files">
-<span id="model-files"></span><h2>Input Model Files<a class="headerlink" href="#input-model-files" title="Permalink to this headline">¶</a></h2>
-<p>Model file set the density, composition, temperature at each</p>
-</div>
-<div class="section" id="setting-runtime-parameters">
-<span id="parameter-files"></span><h2>Setting Runtime Parameters<a class="headerlink" href="#setting-runtime-parameters" title="Permalink to this headline">¶</a></h2>
-<p>Runtime parameters are currently set in the param file, by default is assumed to be
-called <strong>param.lua</strong></p>
-<p>The parameter files uses the Lua scripting language, which allows for
-using math expressions and function calls (may be replaced with a python option).
-One can also grab environment variables using, e.g.,:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sedona_home</span>   <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SEDONA_HOME&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>which sets the local variable <strong>sedona_home</strong> based on the environment variable <strong>$SEDONA_HOME</strong>.</p>
-<p>Default values of all parameters are set in a <strong>defaults</strong> file, which is also in
-the Lua language. The <strong>param.lua</strong> file must point to the defaults file using, e.g.,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">defaults_file</span>    <span class="o">=</span> <span class="n">sedona_home</span><span class="o">..</span><span class="s2">&quot;/defaults/sedona_defaults.lua&quot;</span>
-</pre></div>
-</div>
-<p>This points to the standard defaults file provided with <strong>sedona</strong>. (N.B. the .. notation means string concatenation in Lua)</p>
-<p>Scalar parameters are set as e.g.,:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tstep_time_stop</span>  <span class="o">=</span> <span class="mf">100.0</span>
-</pre></div>
-</div>
-<p>String parameters (such as filenames) are set using quotes, e.g.,:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_module</span> <span class="o">=</span> <span class="s2">&quot;monte_carlo&quot;</span>
-</pre></div>
-</div>
-<p>Vectors parameters are currently set as e.g.,:</p>
-<blockquote>
-<div>spectrum_nu_grid   = {start,stop,delta}</div></blockquote>
-<p>where gives a uniform vector between values <strong>start</strong> and <strong>stop</strong> with spacing <strong>delta</strong>.
-To use a logarithmically spaced grid, we add an extra entry of 1:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spectrum_nu_grid</span>   <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">,</span><span class="n">delta</span><span class="p">,</span><span class="mi">1</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>where now the spacing between points is dx = x*delta</p>
-</div>
-<div class="section" id="controlling-time-evolution">
-<h2>Controlling Time Evolution<a class="headerlink" href="#controlling-time-evolution" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="time-dependent-calculations">
+<h2>Time Dependent Calculations<a class="headerlink" href="#time-dependent-calculations" title="Permalink to this headline">¶</a></h2>
 <p>Calculations in <strong>sedona</strong> can be run either as time evolving or steady-state models.
 This is controlled by time-stepping parameters</p>
 <table border="1" class="colwidths-given docutils" id="id1">
@@ -123,8 +81,8 @@ This is controlled by time-stepping parameters</p>
 </table>
 <p>Times are always in seconds.</p>
 </div>
-<div class="section" id="output-files">
-<h2>Output Files<a class="headerlink" href="#output-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="steady-state-calculations">
+<h2>Steady State Calculations<a class="headerlink" href="#steady-state-calculations" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -148,31 +106,29 @@ This is controlled by time-stepping parameters</p>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_files.html">Input  Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_files.html">Output Files</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Code Execution</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#input-model-files">Input Model Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-runtime-parameters">Setting Runtime Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#controlling-time-evolution">Controlling Time Evolution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#output-files">Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#time-dependent-calculations">Time Dependent Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#steady-state-calculations">Steady State Calculations</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Adding Documentation</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="getting_started.html" title="previous chapter">Getting Started</a></li>
-      <li>Next: <a href="checkpoints.html" title="next chapter">Checkpoints</a></li>
+      <li>Previous: <a href="output_files.html" title="previous chapter">Output Files</a></li>
+      <li>Next: <a href="radiation_transport.html" title="next chapter">Radiation Transport</a></li>
   </ul></li>
 </ul>
 </div>
@@ -188,6 +144,14 @@ This is controlled by time-stepping parameters</p>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -196,8 +160,8 @@ This is controlled by time-stepping parameters</p>
       &copy;2018, D. Kasen.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/code_execution.rst.txt"

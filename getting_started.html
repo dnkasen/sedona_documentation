@@ -13,10 +13,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Basic Code Execution" href="code_execution.html" />
+    <link rel="next" title="Input Files" href="input_files.html" />
     <link rel="prev" title="Sedona6 Users Guide" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -82,9 +81,9 @@ eventually replace lua for parameter files). Python 2.7 is being used. On linux 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">sedona6</span><span class="o">.</span><span class="n">ex</span> <span class="n">param</span><span class="o">.</span><span class="n">lua</span>
 </pre></div>
 </div>
-<p>where <em>param.lua</em> is the file name of the run time parameter file (if no file name is given, the name <em>param.lua</em> is assumed).  See <a class="reference internal" href="code_execution.html#parameter-files"><span class="std std-ref">Setting Runtime Parameters</span></a> for description of setting runtime parameters. At minimum, the parameter file must point to three files</p>
+<p>where <em>param.lua</em> is the file name of the run time parameter file (if no file name is given, the name <em>param.lua</em> is assumed).  See <a class="reference internal" href="input_files.html#parameter-files"><span class="std std-ref">Parameter Files</span></a> for description of setting runtime parameters. At minimum, the parameter file must point to three files</p>
 <ul class="simple">
-<li>A model file  (an ascii .mod file for 1D runs or a hdf5 file for multi-D) giving the physical conditions (e.g., density, composition) of the setup. See <a class="reference internal" href="code_execution.html#model-files"><span class="std std-ref">Input Model Files</span></a> for description of formats.</li>
+<li>A model file  (an ascii .mod file for 1D runs or a hdf5 file for multi-D) giving the physical conditions (e.g., density, composition) of the setup. See <a class="reference internal" href="input_files.html#model-files"><span class="std std-ref">Model Files</span></a> for description of formats.</li>
 <li>An atomic data file in hdf5 format. Such files are available in the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory, with data compiled from various sources.</li>
 <li>A  defaults file, giving the default settings for all runtime parameters. The standard is <code class="docutils literal notranslate"><span class="pre">defaults/sedona\_defaults.lua</span></code>, although users can point to their own modified defaults file.</li>
 </ul>
@@ -122,17 +121,17 @@ eventually replace lua for parameter files). Python 2.7 is being used. On linux 
 <li class="toctree-l2"><a class="reference internal" href="#running-the-code">Running the Code</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="input_files.html">Input  Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_files.html">Output Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Adding Documentation</a></li>
 </ul>
 
 <div class="relations">
@@ -140,7 +139,7 @@ eventually replace lua for parameter files). Python 2.7 is being used. On linux 
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">Sedona6 Users Guide</a></li>
-      <li>Next: <a href="code_execution.html" title="next chapter">Basic Code Execution</a></li>
+      <li>Next: <a href="input_files.html" title="next chapter">Input  Files</a></li>
   </ul></li>
 </ul>
 </div>
@@ -156,6 +155,14 @@ eventually replace lua for parameter files). Python 2.7 is being used. On linux 
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -164,8 +171,8 @@ eventually replace lua for parameter files). Python 2.7 is being used. On linux 
       &copy;2018, D. Kasen.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/getting_started.rst.txt"

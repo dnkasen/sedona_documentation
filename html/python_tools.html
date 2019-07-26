@@ -1,0 +1,396 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Python Tools &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="All Runtime Parameters" href="all_parameters.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="python-tools">
+<h1>Python Tools<a class="headerlink" href="#python-tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The python tools is a small library of tools and classes useful for handling
+sedona in- and output. So far it consists of the following classes:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">ModelFile</span></code> class (h5 files <code class="docutils literal notranslate"><span class="pre">MODEL.h5</span></code> and ASCII files <code class="docutils literal notranslate"><span class="pre">MODEL.mod</span></code>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">SliceFile</span></code> class (1d Castro output of the form <code class="docutils literal notranslate"><span class="pre">NAME.slice</span></code>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">PltFile</span></code> class (h5 files <code class="docutils literal notranslate"><span class="pre">pltXXXXX.h5</span></code>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">SpectrumFile</span></code> class (h5 files <code class="docutils literal notranslate"><span class="pre">SPECTRUM.h5</span></code>, produced by sedona if <code class="docutils literal notranslate"><span class="pre">output_write_radiation</span> <span class="pre">=</span> <span class="pre">1</span></code> is set in the <code class="docutils literal notranslate"><span class="pre">param.lua</span></code>.)</li>
+<li><code class="docutils literal notranslate"><span class="pre">PlotterClass</span></code> (Visualising DataFiles of all kind either in a set of plots, one combined plot or an animation of the time evolution)</li>
+</ul>
+<p>There are also a number of scripts</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">lightcurve_tools.py</span></code> (An useful tool to create lightcurves from spectrum.h5 files. See section on <a class="reference internal" href="#lightcurve-tools">lightcurve_tools</a>. for more information eg. how to use it)</li>
+<li><code class="docutils literal notranslate"><span class="pre">test_\*.py</span></code> (test scripts, all available in the <code class="docutils literal notranslate"><span class="pre">python_tools/tests/</span></code> folder. They show the basic utilisation of the Datafile/Plotter classes with the example data found in the <code class="docutils literal notranslate"><span class="pre">python_tools/data/</span> <span class="pre">directory</span></code>).</li>
+</ul>
+<p>To use any of the <code class="docutils literal notranslate"><span class="pre">test_*.py</span></code> files just type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">test_REST_OF_NAME</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>in the <code class="docutils literal notranslate"><span class="pre">python_tools/tests/</span></code> folder.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To be able to use the tools, make sure, that you have downloaded the python_tools directory to your machine and add the following lines to the start of your python script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">path_to_tools</span> <span class="o">=</span> <span class="s1">&#39;../Classes/&#39;</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path_to_tools</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">DataFile</span> <span class="k">as</span> <span class="nn">DF</span>
+<span class="kn">import</span> <span class="nn">Plotter</span> <span class="k">as</span> <span class="nn">P</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">path_to_tools</span></code> can either be a relative path to the python_tools/Classes/ directory or its absolute path (ie. <code class="docutils literal notranslate"><span class="pre">/usr/path/to/the/folder/python_tools/Classes/</span></code>).</p>
+</div>
+<div class="section" id="file-handling">
+<h2>File Handling<a class="headerlink" href="#file-handling" title="Permalink to this headline">¶</a></h2>
+<p id="filehandling">Generally speaking, Spectrum, Model, Plt and Slice files all have something in common: They consist of a large set of data table and a set of column names - they are some sort of data file.
+Examples on how to use them can be found in the python_tools/tests/ directory. There we can see, how to use the classes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">DataFile</span> <span class="k">as</span> <span class="nn">DF</span>
+
+<span class="n">MyFile</span> <span class="o">=</span> <span class="n">DF</span><span class="o">.</span><span class="n">ModelFile</span><span class="p">(</span><span class="n">NAME_OF_THE_FILE</span><span class="p">,</span> <span class="n">PATH_TO_THE_FILE</span><span class="p">,</span> <span class="n">autoload</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">MyFile</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> is not necessary, if <code class="docutils literal notranslate"><span class="pre">autoload</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, which is its default. <code class="docutils literal notranslate"><span class="pre">MyFile</span></code> is now a DataFile object (also named DFO). It comes with a list of capabilities,
+for example, once we have a file initialised, we can take a quick look at it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MyFile</span><span class="o">.</span><span class="n">plot_data_1D</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will open up a standard matplotib window. The console and the labels on the plot tell, what is plotted, if the arguments in plot_data_1D are empty, the program will look for the default keys:</p>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">Default <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> keys</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="29%" />
+<col width="14%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">File Type</th>
+<th class="head"><code class="docutils literal notranslate"><span class="pre">default_x_key</span></code></th>
+<th class="head"><code class="docutils literal notranslate"><span class="pre">default_y_key</span></code></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ModelFile</td>
+<td><code class="docutils literal notranslate"><span class="pre">'r'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">'rho'</span></code></td>
+</tr>
+<tr class="row-odd"><td>SliceFile</td>
+<td><code class="docutils literal notranslate"><span class="pre">'x'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">'density'</span></code></td>
+</tr>
+<tr class="row-even"><td>PltFile</td>
+<td><code class="docutils literal notranslate"><span class="pre">'r'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">'rho'</span></code></td>
+</tr>
+<tr class="row-odd"><td>SpectrumFile</td>
+<td><code class="docutils literal notranslate"><span class="pre">'nu'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">Lnu_averaged'</span></code>, which is the automatically angle and time averaged Lnu</td>
+</tr>
+</tbody>
+</table>
+<p>The following functions are defined for all data file types:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">set_keyword</span></code>: Set a value in the data dictionary.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MyFile</span><span class="o">.</span><span class="n">set_keyword</span><span class="p">(</span><span class="s1">&#39;numbers&#39;</span><span class="p">,</span>             <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]))</span>
+<span class="n">MyFile</span><span class="o">.</span><span class="n">set_keyword</span><span class="p">(</span><span class="s1">&#39;other numbers&#39;</span><span class="p">,</span>       <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">MyFile</span><span class="o">.</span><span class="n">set_keyword</span><span class="p">(</span><span class="s1">&#39;2D array of numbers&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+                                                      <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span>
+                                                      <span class="p">[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">],</span>
+                                                      <span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span>
+                                                      <span class="p">[</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">25</span><span class="p">]]</span> <span class="p">))</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">set_keyword</span></code></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%" />
+<col width="21%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Argument</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">key</span></code></td>
+<td>arbitrary, string recommended</td>
+<td>key, at which the value is written</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">value</span></code></td>
+<td>arbitrary, numpy array recommended</td>
+<td>dictionary entry</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">get_value</span></code>: Return the set value in the data dictionary.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="n">Myfile</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="s1">&#39;numbers&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">get_value</span></code></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%" />
+<col width="21%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Argument</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">key</span></code></td>
+<td>arbitrary, string recommended</td>
+<td>key, at which the value is written</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">plot_data_1D</span></code>: Creates a 1D matplotlib plot of two 1D arrays <code class="docutils literal notranslate"><span class="pre">MyFile.data[x]</span></code> vs. <code class="docutils literal notranslate"><span class="pre">MyFile.data[y]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MyFile</span><span class="o">.</span><span class="n">plot_data_1D</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;numbers&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;other numbers&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">plot_data_2D</span></code>: Visualises a 2D array vs. two 1D arrays, ie. <code class="docutils literal notranslate"><span class="pre">MyFile.data[x]</span></code>, <code class="docutils literal notranslate"><span class="pre">MyFile.data[y]</span></code> vs. <code class="docutils literal notranslate"><span class="pre">MyFile.data[z]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MyFile</span><span class="o">.</span><span class="n">plot_data_2D</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;numbers&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;other numbers&#39;</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="s1">&#39;2D array of numbers&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">plot_data_1D</span> <span class="pre">and</span> <span class="pre">plot_data_2D</span></code></span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%" />
+<col width="21%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Argument</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code> (for 2D only)</td>
+<td>arbitrary, string recommended</td>
+<td>key of the <code class="docutils literal notranslate"><span class="pre">x</span></code>/<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">z</span></code> data in the data dictionary, if no set it will default to the <code class="docutils literal notranslate"><span class="pre">default_x/y/z_key</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">plot_type</span></code></td>
+<td>string either <code class="docutils literal notranslate"><span class="pre">'std'</span></code>, <code class="docutils literal notranslate"><span class="pre">'logx'</span></code>, <code class="docutils literal notranslate"><span class="pre">'logy'</span></code> or <code class="docutils literal notranslate"><span class="pre">'loglog'</span></code></td>
+<td>Describes the axis scaling, standard (linear on both axes), semilogarithmic plot with logarithmic x/y axis or loglog plot</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">plot_title</span></code>, <code class="docutils literal notranslate"><span class="pre">plot_xlabel</span></code>, <code class="docutils literal notranslate"><span class="pre">plot_ylabel</span></code></td>
+<td>string</td>
+<td>Set these by hand to manually write title and labels of the plot. They <strong>do</strong> <strong>not</strong> affect the data plotted!</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">plot_fmt</span></code></td>
+<td>string</td>
+<td>format string used by <code class="docutils literal notranslate"><span class="pre">matplotib.pyplot.plot()</span></code>, eg. <code class="docutils literal notranslate"><span class="pre">'co'</span></code> for cyan dots or <code class="docutils literal notranslate"><span class="pre">'r--'</span></code> for a dashed red line.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">plot_save</span></code></td>
+<td>boolean</td>
+<td>whether to save the plot or not. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">plot_save_type</span></code></td>
+<td>string</td>
+<td>What file the plot is to be saved to, eg. <code class="docutils literal notranslate"><span class="pre">'pdf'</span></code> or <code class="docutils literal notranslate"><span class="pre">'JPG'</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">'png'</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">interactive</span></code></td>
+<td>boolean</td>
+<td>Whether or not to open up an interface, where two sets of buttons allow to change x and y. See <a class="reference internal" href="#id1">Plotting</a> for more information.</td>
+</tr>
+</tbody>
+</table>
+<p>But there are also file type specific functions, which are</p>
+</div>
+<div class="section" id="tools">
+<h2>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<p id="lightcurve-tools">In the python_tools/tools directory there is a script called <code class="docutils literal notranslate"><span class="pre">lightcurve_tools.py</span></code>.
+It can be used to create the light curve in a given band.
+A list of all available bands can be found in the <code class="docutils literal notranslate"><span class="pre">FILTER_LIST</span></code> file in <code class="docutils literal notranslate"><span class="pre">python_tools/data/</span></code>.
+They can also be accessed by typing</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">lightcurve_tools</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">bands</span>
+</pre></div>
+</div>
+<p>To produce a light curve just use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">lightcurve_tools</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">path_to_spectrum_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">b</span> <span class="o">&lt;</span><span class="n">space</span> <span class="n">separated</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">bands</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The resulting lighcurve can be found in the file <code class="docutils literal notranslate"><span class="pre">./lightcurve.out</span></code>.
+It has 3 columns  called <em>Time (Days)</em>, <em>Lbol (erg/s)</em>, <em>Mbol</em> and one for every band
+For example the <code class="docutils literal notranslate"><span class="pre">lightcurve.out</span></code> created by running</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">lightcurve_tools</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">s</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">spectrum_1D_TypeIa</span><span class="o">.</span><span class="n">h5</span> <span class="o">-</span><span class="n">b</span> <span class="n">U</span> <span class="n">B</span> <span class="n">V</span>
+</pre></div>
+</div>
+<p>in the <code class="docutils literal notranslate"><span class="pre">python_tools/tools/</span></code> directory produces a <code class="docutils literal notranslate"><span class="pre">lightcurve.out</span></code> (in <code class="docutils literal notranslate"><span class="pre">python_tools/tools/</span></code>)
+with 6 data columns for time, bolometric luminosity, bolometric magnitude and the magnitude in the U, B and V band. All magnitudes are given in the AB Magnitude System.</p>
+<p><strong>Warning:</strong> Invalid elements are assigned a value of 0, the script also floors the magnitudes to 0 if &lt;0</p>
+</div>
+<div class="section" id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+<p id="id1">There are also possibilities to compare single or multiple data files. The important basic examples can be found in <code class="docutils literal notranslate"><span class="pre">/tests/test_plotter.py</span></code> and <code class="docutils literal notranslate"><span class="pre">tests/test_datafilelasses.py</span></code>.
+The different types of plots available are:</p>
+<p>For a single DataFile</p>
+<ul class="simple">
+<li>plot X vs. Y, where X and Y are two arrays found in the data</li>
+<li>plot X vs. Y, where two row of buttons let you switch between all available X and Y arrays</li>
+<li>plot X and Y vs. Z</li>
+</ul>
+<p>For multiple DataFiles</p>
+<ul class="simple">
+<li>making subplots for a set of files (plotting their respective default X vs. default Y)</li>
+<li>combining a set of files into one single plot (again, plotting their respective default X vs. default Y)</li>
+<li>timeseries of a set of files, ie. plotting time dependent data into a short repeating movie. This works for single DataFiles, that have a time axis (ie SpectrumFiles) or a set of files, that have a time associated to them (so far only SliceFiles have been implemented)</li>
+</ul>
+<p>A single DataFile plot can be opened without explicitly calling the plotter, for example by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;python_tools/data/&quot;</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;plt19400.slice&quot;</span>
+
+<span class="n">S</span> <span class="o">=</span> <span class="n">DF</span><span class="o">.</span><span class="n">SliceFile</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<span class="n">S</span><span class="o">.</span><span class="n">plot_data_1D</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">DATAFILE.plot_data_1D()</span></code> takes the arguments described in the <a class="reference internal" href="#filehandling">FileHandling</a> section.
+If a 2D plot is needed, use <code class="docutils literal notranslate"><span class="pre">DATAFILE.plot_data_2D()</span></code>, which can be used to visualise a 2D array of shape (A x B), using two 1D arrays of length A and B as x and y-axis.
+For an interactive plotting interface (for 1D plots), set <code class="docutils literal notranslate"><span class="pre">interactive</span> <span class="pre">=</span> <span class="pre">True</span></code> for the <code class="docutils literal notranslate"><span class="pre">DATAFILE.plot_data_1D()</span></code> function, ie.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span><span class="o">.</span><span class="n">plot_data_1D</span><span class="p">(</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The same plot will be opened, if</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Plot</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">DataFileObjects</span> <span class="o">=</span> <span class="p">[</span><span class="n">S</span><span class="p">])</span>
+<span class="n">Plot</span><span class="o">.</span><span class="n">start_1D_UI</span><span class="p">(</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;interactiveplot&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is called. The first line initialises the Plotter object called Plot, the second starts the interface.
+<strong>Note, that P.Plotter takes a list of DFOs to initialise!</strong> The reason is, that normally one would want to compare a set of DFOs.
+Generally speaking, the Plotter class comes (aside from some convenience methods) with a one-for-all-function <strong>``start_1D_UI()``</strong>.
+Its most important argument is <code class="docutils literal notranslate"><span class="pre">mode</span></code>. <code class="docutils literal notranslate"><span class="pre">mode</span></code> can be one of the following options:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">=</span> <span class="pre">'interativeplot'</span></code>: Opens the same plot, as if <code class="docutils literal notranslate"><span class="pre">DATAFILE.plot_data_1D(interactive)</span></code> were called. Window consists of one plot and two columns of (radio) buttons, that can be used to select the data on the x and y axis.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">=</span> <span class="pre">'subplots'</span></code>: Open a window with N = (number of DFOs in the DataFileObjects list) subplots, one for every DFO. Plots default x vs. default y for every file. There is a button to en- and disable log scaling for the axes.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">=</span> <span class="pre">'onewindow'</span></code>: Open a window with one plot. As for <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">=</span> <span class="pre">'subplots'</span></code> default x vs. default y is plotted for every file, but now in one combined plot. There is a button to en- and disable log scaling for the axes. <strong>Warning:</strong> The Plotter doesn’t check the dimensions and units of the data, it assumes, that it makes sense, that all the data can be put into one plot window!</li>
+<li><code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">=</span> <span class="pre">'timeseries'</span></code>: Open a window with one plot, a progress bar above it, and two buttons for the log scaling. If the Plotter object has been initialised with <code class="docutils literal notranslate"><span class="pre">DataFileObjects</span> <span class="pre">=</span> <span class="pre">[ONEFILE]</span></code>, then this file needs to have a time axis. So far, only <code class="docutils literal notranslate"><span class="pre">SPECTRUM.h5</span></code> files do. If the <code class="docutils literal notranslate"><span class="pre">DataFileObjects</span></code> list consists of more than one element, then it uses <code class="docutils literal notranslate"><span class="pre">DFO.find_time()</span></code> to see, if a time can be found.
+Once the data is loaded, the movie is created using the given fps number and film_duration and interpolating between snapshots created from the DFO(s).</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sedona6</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoints.html">Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atomic_data.html">Atomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nlte.html">NLTE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-handling">File Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="all_parameters.html" title="previous chapter">All Runtime Parameters</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, D. Kasen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/python_tools.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
