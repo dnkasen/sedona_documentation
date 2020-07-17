@@ -7,104 +7,231 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Input Files &#8212; Sedona6  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Output Files" href="output_files.html" />
-    <link rel="prev" title="Getting Started" href="getting_started.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <link rel="prev" title="Running Sedona" href="running.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
 
   </head><body>
-  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="output_files.html" title="Output Files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="running.html" title="Running Sedona"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sedona6  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="input-files">
 <h1>Input  Files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h1>
-<p>Several example setups for different sorts of science runs are given in the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> directory. Simpler tests are in the <code class="docutils literal notranslate"><span class="pre">tests/</span></code> directory.</p>
-<p><strong>sedona</strong> everywhere uses cgs units.</p>
-<div class="section" id="parameter-files">
-<span id="id1"></span><h2>Parameter Files<a class="headerlink" href="#parameter-files" title="Permalink to this headline">¶</a></h2>
-<p>Runtime parameters are set in a parameter file that by default is assumed to be
-called <strong>param.lua</strong></p>
-<p>All runtime parameters are collected in the appendix, as well as described throughout
-this documentation.</p>
-<p>The parameter files uses the Lua scripting language, which allows for
-using math expressions and function calls (may be replaced with a python option).
-One can also grab environment variables using, e.g.,:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sedona_home</span>   <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SEDONA_HOME&#39;</span><span class="p">)</span>
+<p>Sedona requires  the user to supply two files that describe the properties of the desired run.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#parameter-files"><span class="std std-ref">The Parameter File</span></a> is a text file (in the lua scripting language) that let’s you set the desired runtime parameters of the job.  By default, this file is assumed to be named <strong>param.lua</strong></li>
+<li><a class="reference internal" href="#model-files"><span class="std std-ref">The Model File</span></a> specifies the grid geometry and the initial conditions (e.g., density, velocity, temperature) to be used in your calculation.</li>
+</ul>
+<p>In addition, the user must point to two additional files</p>
+<ul class="simple">
+<li>The <strong>defaults file</strong> is a text file that specifies the default values of all runtime parameters. Any parameter not specifed in the <a class="reference internal" href="#parameter-files"><span class="std std-ref">The Parameter File</span></a> will assume the default value given in this file. A standard defaults file is included in the Sedona distribution at <strong>defaults/sedona_defaults.lua</strong>.  You can modify this file, or create different default files for different projects.</li>
+<li>The <a class="reference internal" href="#atomic-data-files"><span class="std std-ref">Atomic Data File</span></a> provides the detailed properties (e.g., level energies, line transitions) of the atoms used for calculating opacities and emissivities. Existing atomic data files are provided in the <strong>data/</strong> directory of the Sedona release.</li>
+</ul>
+<p>The names of the model file, the defaults file and the atomic data file are must be specified within the parameter file used for the run. The name of the parameter file itself is specified as a command line argument when running the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">sedona6</span><span class="o">.</span><span class="n">ex</span> <span class="n">my_parameter_file</span><span class="o">.</span><span class="n">lua</span>
 </pre></div>
 </div>
-<p>which sets the local variable <strong>sedona_home</strong> based on the environment variable <strong>$SEDONA_HOME</strong>.</p>
-<p>Default values for all parameters are set in a <strong>defaults</strong> file, which is also in
-the Lua language. The <strong>param.lua</strong> file must point to the defaults file using, e.g.,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">defaults_file</span>    <span class="o">=</span> <span class="n">sedona_home</span><span class="o">..</span><span class="s2">&quot;/defaults/sedona_defaults.lua&quot;</span>
-</pre></div>
-</div>
-<p>This points to the standard defaults file provided with <strong>sedona</strong>. (N.B. the .. notation means string concatenation in Lua)</p>
-<p>Scalar parameters are set as e.g.,:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tstep_time_stop</span>  <span class="o">=</span> <span class="mf">100.0</span>
+<p>If no argument is given after <code class="docutils literal notranslate"><span class="pre">./sedona6.ex</span></code> the code will assume the file is named <strong>param.lua</strong> and is in the current directory.</p>
+<p>Input parameter and model files for several example setups for different sorts of science runs are provided in the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> directory of the [sedona] distribution.</p>
+<div class="section" id="the-parameter-file">
+<span id="parameter-files"></span><h2>The Parameter File<a class="headerlink" href="#the-parameter-file" title="Permalink to this headline">¶</a></h2>
+<p>All runtime parameters are set in the parameter file (assumed to be named <strong>param.lua</strong> unless another name is supplied on the command line argument).  A complete list of [sedona] runtime parameters is compiled in the appendix.  The pracitical  usage of individual parameters described in the relevant sections throughout this documentation.</p>
+<p>The parameter files uses the Lua scripting language. Each parameter is set on a different line.
+Scalar parameters are set as, e.g.,:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tstep_time_start</span>  <span class="o">=</span> <span class="mf">100.0</span>
 </pre></div>
 </div>
 <p>String parameters (such as filenames) are set using quotes, e.g.,:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_module</span> <span class="o">=</span> <span class="s2">&quot;monte_carlo&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model_file</span> <span class="o">=</span> <span class="s2">&quot;my_model.hdf5&quot;</span>
 </pre></div>
 </div>
-<p>Vectors parameters are currently set as e.g.,:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_nu_grid</span>   <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">,</span><span class="n">delta</span><span class="p">}</span>
+<p>Vectors parameters are set using { } brackets, e.g.,:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_nu_grid</span>   <span class="o">=</span> <span class="p">{</span><span class="mf">1e14</span><span class="p">,</span><span class="mf">1e15</span><span class="p">,</span><span class="mf">1e13</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>where gives a uniform vector between values <strong>start</strong> and <strong>stop</strong> with spacing <strong>delta</strong>.
-To use a logarithmically spaced grid, we add an extra entry of 1:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_nu_grid</span>   <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">,</span><span class="n">delta</span><span class="p">,</span><span class="mi">1</span><span class="p">}</span>
+<p>Comments can be made in the lua parameter files by putting a double dash before a line, e.g.,</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- set uniform frequency grid with bounds (nu_start, nu_stop, nu_delta)</span>
+<span class="n">transport_nu_grid</span>   <span class="o">=</span> <span class="p">{</span><span class="mf">1e14</span><span class="p">,</span><span class="mf">1e15</span><span class="p">,</span><span class="mf">1e13</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>where now the spacing between points is dx = x*delta</p>
+<p>The lua scripting allows you to define helper variables and use math expressions within the parameter file itself.  For example, we can define a variable called “days” and use it to more conveniently set runtime parameters</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">days</span> <span class="o">=</span> <span class="mi">86400</span> <span class="c1">-- helper variable, seconds in a day</span>
+
+<span class="c1">-- set start and stop time of calculation</span>
+<span class="n">tstep_time_start</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">days</span>
+<span class="n">tstep_time_stop</span>  <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">days</span>
+</pre></div>
 </div>
-<div class="section" id="model-files">
-<span id="id2"></span><h2>Model Files<a class="headerlink" href="#model-files" title="Permalink to this headline">¶</a></h2>
-<p>Model file set the density, composition, temperature, etc…  of the initial model.</p>
-<table border="1" class="colwidths-given docutils" id="id3">
-<caption><span class="caption-text">Model File Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<p>You can also access environment variables within the parameter file using the <code class="docutils literal notranslate"><span class="pre">os.getenv()</span></code> command. For example, to set a local variable <code class="docutils literal notranslate"><span class="pre">sedona_path</span></code> to the environment variable <code class="docutils literal notranslate"><span class="pre">SEDONA_HOME</span></code>, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sedona_path</span>   <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SEDONA_HOME&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>String concantention is done using double periods. For example, you can  use the <code class="docutils literal notranslate"><span class="pre">sedona_path</span></code> variable defined above to specify the full path of a file</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">atomic_data_file</span> <span class="o">=</span> <span class="n">sedona_path</span><span class="o">..</span><span class="s2">&quot;/data/atomic_data.hdf5&quot;</span>
+</pre></div>
+</div>
+<p>The parameter file <strong>must</strong> set the name of a default file, which is a file that uses the same lua scripting to define the default values of all runtime parameters. A standard defaults file is included in the [sedona] distribution and can be pointed in the parameter file by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">defaults_file</span>    <span class="o">=</span> <span class="n">sedona_path</span><span class="o">..</span><span class="s2">&quot;/defaults/sedona_defaults.lua&quot;</span>
+</pre></div>
+</div>
+<p>You can create multiple defaults files and use them for different projects, and point to which one they wish to use in the parameter file of any given run.</p>
+<p>While the lua scripting language is fairly convenient, the <strong>sedonalib</strong> python package also provides a python class that lets the user easily generate parameter files within a python script or jupyter notebook. See..  for usage.</p>
+</div>
+<div class="section" id="the-model-file">
+<span id="model-files"></span><h2>The Model File<a class="headerlink" href="#the-model-file" title="Permalink to this headline">¶</a></h2>
+<p>The model file defines the grid geometry, resolution and initial conditions to be used in the calculation.  The grid geometries currently implemented in [sedona] are <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">Available Grid Geometries</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="23%" />
-<col width="15%" />
-<col width="62%" />
+<col width="33%" />
+<col width="67%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">parameter</th>
-<th class="head">values</th>
-<th class="head">definition</th>
+<tr class="row-odd"><th class="head"><strong>Geometry name</strong></th>
+<th class="head"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>grid_type</td>
-<td>“grid_1D_sphere”, “grid_2D_cyln”, “grid_3D_cart”</td>
-<td>grid geometry; must match input model</td>
+<tr class="row-even"><td>grid_1D_sphere</td>
+<td>1D spherical coordinates (r)</td>
 </tr>
-<tr class="row-odd"><td>model_file</td>
-<td>&lt;string&gt;</td>
-<td>Name of model file</td>
+<tr class="row-odd"><td>grid_2D_cyln</td>
+<td>2D cylndrical coordinates (r-z)</td>
+</tr>
+<tr class="row-even"><td>grid_3D_cart</td>
+<td>3D cartesian coordinates (x,y,z)</td>
+</tr>
+<tr class="row-odd"><td>grid_3D_sphere</td>
+<td>3D spherical coordinates (<img class="math" src="_images/math/ffbea0ef5b167c0746a14ff47d103c0b1f710d52.png" alt="r, \theta, \phi"/>)</td>
+</tr>
+</tbody>
+</table>
+<p>In addition to the geometry, the  model file also specifies the following properties</p>
+<ul class="simple">
+<li>The number of zones each dimension</li>
+<li>The spatial size of zones in each dimension</li>
+<li>The list of atomic species to be used in the calculation (defined by their atomic number Z and atomic weight A)</li>
+<li>The time (in seconds) at which the model is defined (most relevant for homologously expanding models)</li>
+</ul>
+<p>The model file also includes arrays that specify, for each zone, the values of the:</p>
+<ul class="simple">
+<li>density</li>
+<li>temperature</li>
+<li>velocity</li>
+<li>mass fraction of each atomic species being used</li>
+<li>radiation energy density (optional)</li>
+</ul>
+<p>where all quantities are in cgs units.</p>
+<p>The structure of the model file differs slightly depending on the geometry being used; the format for each case is described in the sections below. For 1-dimensional calculations, the model file can either be in ascii or in hdf5. For 2D and 3D calculations, the model file must be in hdf5 format.</p>
+<div class="section" id="d-spherical-model-ascii-format">
+<h3>1D spherical model (ascii format)<a class="headerlink" href="#d-spherical-model-ascii-format" title="Permalink to this headline">¶</a></h3>
+<p>1D spherical models the zones are cocentric shells.  The</p>
+<p>In the ascii format, the 1D_sphere model files begin with the following 3 line header:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>**geometry**  **type**
+
+**n_zones**     **r0_in  time  n_species**
+
+**:math:`Z.A_1`  Z_2.A_2  Z_3.A_3 ...**
+</pre></div>
+</div>
+<p>where in the first line,</p>
+<ul class="simple">
+<li><strong>geometry</strong> = grid geometry, one of the names in Table~.</li>
+<li><strong>type</strong>  = a subtype of the geometry</li>
+</ul>
+<p>where <strong>n_zones</strong> is the number of radial zones (i.e., shells), <strong>r0_in</strong> is the inner radius of the innermost shell, <strong>time</strong> is the time at which the model is defined, and <strong>n_species</strong> is the number of atomic species to be used.</p>
+<p>For example, this header</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1D_SPHERE standard
+100  0.0  86400  4
+1.1. 2.4 6.12 8.16
+</pre></div>
+</div>
+<p>states that the model has 100 radial zones, the inner radius of the innermost zone is <img class="math" src="_images/math/fa877cc0277c75ff787610b90d22971a68a294b3.png" alt="r_{0,in} = 0"/>, and the time of the model is 86400 seconds (i.e., one day). There are 4 atomic species used in the model, which are specifie
+d on the third line in the
+Z.A format to be: 1.1 = hydrogen-1 (<img class="math" src="_images/math/48075bfa78363b348ebe0340fd2975584273f025.png" alt="^1{\rm H}"/> ), 2.4  = helium-4 (<img class="math" src="_images/math/9b85a90f81e24b6948c78f729011d28287f2c72a.png" alt="^4{\rm He}"/>), 6.12 (carbon-12, <img class="math" src="_images/math/277773c252218db802e15a67864eb86d9f7a9b16.png" alt="^{12}{\rm C}"/>) and 8.16 (oxygen-16, <img class="math" src="_images/math/93be67cb2d942f7495fdb136e8123b663a7879ac.png" alt="^{16}{\rm O}"/>)</p>
+<p>After the header follows a set of columns with n_zones rows that specify the properties of each zone</p>
+<blockquote>
+<div><strong>r_out   v_out  density  temperature  X_1  X_2  X_3 …*</strong></div></blockquote>
+<p>where <strong>r_out</strong> is the outer radius of a zone (i.e., shell), <strong>v_out</strong> is the velocity at the outer radius of the zone,</p>
+</div>
+<div class="section" id="d-spherical-model-hdf5-format">
+<h3>1D spherical model (hdf5 format)<a class="headerlink" href="#d-spherical-model-hdf5-format" title="Permalink to this headline">¶</a></h3>
+<p>Has the following hdf5 datasets</p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">1D_sphere model hdf5 data sets</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="14%" />
+<col width="29%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">dataset</th>
+<th class="head">dimensions</th>
+<th class="head">description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>r_out</td>
+<td>double[n_zones]</td>
+<td>outer radius of a zone (i.e., shell)</td>
+</tr>
+<tr class="row-odd"><td>rho</td>
+<td>double[n_zones]</td>
+<td>density of the gas in each zone</td>
+</tr>
+<tr class="row-even"><td>temp</td>
+<td>double[n_zones]</td>
+<td>temperature of the gas in each zone</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="atomic-data-files">
-<h2>Atomic Data Files<a class="headerlink" href="#atomic-data-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="d-cylndrical">
+<h3>2D cylndrical<a class="headerlink" href="#d-cylndrical" title="Permalink to this headline">¶</a></h3>
+<dl class="dl-parameters docutils">
+<dt>term (up to a line of text)</dt>
+<dd><p class="first">Definition of the term, which must be indented</p>
+<p class="last">and can even consist of multiple paragraphs</p>
+</dd>
+<dt>next term</dt>
+<dd>Description.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="atomic-data-file">
+<span id="atomic-data-files"></span><h2>Atomic Data File<a class="headerlink" href="#atomic-data-file" title="Permalink to this headline">¶</a></h2>
 <p>Atomic datafiles hold detailed information about atoms, and
 can be found in the <strong>data/</strong> folder.</p>
 <p>Essential atomic data is compiled into a single hdf5 file. Additional atomic line data
@@ -133,56 +260,50 @@ can be found in the <strong>data/</strong> folder.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Additional geometries can be defined by modifying the [sedona] source code. The  grid structure is abstracted into a separate class that handles all geometrical information. Defining a new geometry thus requires writing a new derived C++ class that provides the requisite geometrical routines.</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Sedona6</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Input  Files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#parameter-files">Parameter Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#model-files">Model Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#atomic-data-files">Atomic Data Files</a></li>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Input  Files</a><ul>
+<li><a class="reference internal" href="#the-parameter-file">The Parameter File</a></li>
+<li><a class="reference internal" href="#the-model-file">The Model File</a><ul>
+<li><a class="reference internal" href="#d-spherical-model-ascii-format">1D spherical model (ascii format)</a></li>
+<li><a class="reference internal" href="#d-spherical-model-hdf5-format">1D spherical model (hdf5 format)</a></li>
+<li><a class="reference internal" href="#d-cylndrical">2D cylndrical</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="output_files.html">Output Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code_execution.html">Basic Code Execution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="radiation_transport.html">Radiation Transport</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sources.html">Radiation Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="opacity.html">Opacity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hydrodynamics.html">Hydrodynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting and Data Visualization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="all_parameters.html">All Runtime Parameters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python_tools.html">Python Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documentation.html">Adding Documentation</a></li>
+<li><a class="reference internal" href="#atomic-data-file">Atomic Data File</a></li>
+</ul>
+</li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="getting_started.html" title="previous chapter">Getting Started</a></li>
-      <li>Next: <a href="output_files.html" title="next chapter">Output Files</a></li>
-  </ul></li>
-</ul>
-</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="running.html"
+                        title="previous chapter">Running Sedona</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="output_files.html"
+                        title="next chapter">Output Files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/input_files.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <div class="searchformwrapper">
@@ -195,32 +316,28 @@ can be found in the <strong>data/</strong> folder.</p>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2018, D. Kasen.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/input_files.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="output_files.html" title="Output Files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="running.html" title="Running Sedona"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sedona6  documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, D. Kasen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
   </body>
 </html>

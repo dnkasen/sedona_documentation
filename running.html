@@ -1,0 +1,263 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Running Sedona &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Input Files" href="input_files.html" />
+    <link rel="prev" title="Installing Sedona" href="installing.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="input_files.html" title="Input Files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installing.html" title="Installing Sedona"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sedona6  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="running-sedona">
+<h1>Running Sedona<a class="headerlink" href="#running-sedona" title="Permalink to this headline">¶</a></h1>
+<p>Before running [sedona] it is helpful to set the environment variable  <code class="docutils literal notranslate"><span class="pre">SEDONA_HOME</span></code> to point to the base directory of sedona. In the bash shell, for example, add this line to your <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> or <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SEDONA_HOME</span><span class="o">=/</span><span class="n">Users</span><span class="o">/</span><span class="n">kasen</span><span class="o">/</span><span class="n">sedona6</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>replacing <code class="docutils literal notranslate"><span class="pre">/Users/kasen/sedona6/</span></code> with the base directory of your sedona</p>
+<p>To run [sedona] on a single processor, copy the compiled <code class="docutils literal notranslate"><span class="pre">sedona6.ex</span></code> executable into the directory where you plan to run.  Make sure the required input files exist (see … ) and run the code with the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">sedona6</span><span class="o">.</span><span class="n">ex</span> <span class="n">my_parameter_file</span><span class="o">.</span><span class="n">lua</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">my_parameter_file.lua</span></code> is the name of the input parameter file containing runtime parameters.  If you run <code class="docutils literal notranslate"><span class="pre">./sedona6.ex</span></code> with no subsequent argument, the code will assume the parameter file is name <em>param.lua</em></p>
+<p>For  calculations on multiple processing cores, [sedona] uses a mixture of MPI and openMP parallelism. You should refer to the instructions on the system you are using to determine the appropriate commands to execute a parallel calculation.   If using mpich, for example, the command to run with MPI parallelism is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mpirun</span> <span class="o">-</span><span class="n">n</span> <span class="mi">2</span> <span class="o">./</span><span class="n">sedona6</span><span class="o">.</span><span class="n">ex</span> <span class="n">my_parameter_file</span><span class="o">.</span><span class="n">lua</span>
+</pre></div>
+</div>
+<p>where the number after <code class="docutils literal notranslate"><span class="pre">-n</span></code> is the number of mpi ranks to use (in this case 2).</p>
+<p>To run using openMP  threading, often you set the number of threads as an environment variable.  In the bash shell, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">OMP_NUM_THREADS</span><span class="o">=</span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>where the value of <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code> is the number of threads to use (in this case 4).</p>
+<p>A key distinction between the two parallelism models is that openMP threads share the same memory whereas MPI ranks do not. Thus, each MPI rank used in [sedona] allocates a replica of the entire simulation grid and independently transports a subset of the Monte Carlo photon particles, with the results being communicated among all processors at the end of each transport step. In contrast, all openMP threads (on a given MPI rank) share and operate on the same simulation grid.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">examples/</span></code> directory if the [sedona] installation provides example setups for a range of different science problems. This is a good place to start becoming familiar with calculations; below we describe a few instructive examples.  If you are acustomed to runnning Jupyter notebooks, the directory <code class="docutils literal notranslate"><span class="pre">examples/jupyter_notebooks</span></code> provides some example notebooks.</p>
+<div class="section" id="example-1-spherical-lightbulb-test">
+<h2>Example #1: Spherical Lightbulb Test<a class="headerlink" href="#example-1-spherical-lightbulb-test" title="Permalink to this headline">¶</a></h2>
+<p>Example problem located in directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$SEDONA_HOME/examples/spherical_lightbulb/1D
+</pre></div>
+</div>
+<p>The <em>spherical lightbulb</em> is a quick test problem consisting of a spherical surface (the “core”) that
+uniformly emits blackbody radiation into an optically thin medium. The radial dependence of the radiation field in steady state can be calculated analytically</p>
+<div class="math">
+<p><img src="_images/math/3afe93888f6805bed16ff67973c46cf1b6bf7a28.png" alt="T_{\rm rad}(r) = T_{\rm c} \left[ \frac{1}{2} \left(1 - \sqrt{1 - R_{\rm c}^2/r^2} \right) \right]^{1/4}"/></p>
+</div><p>where <img class="math" src="_images/math/9861c15905ce82d65bf8ba8fdb352abaa1cfdc21.png" alt="R_{\rm c}"/> is the radius and <img class="math" src="_images/math/2a80d1b4a10d7952bd2eac5222c0961f1be117e8.png" alt="T_{\rm c}"/> the blackbody temperature of the emitting spherical core.  The observed spectrum should be a blackbody of temperature <img class="math" src="_images/math/2a80d1b4a10d7952bd2eac5222c0961f1be117e8.png" alt="T_{\rm c}"/>.</p>
+<p>To run the problem, change to the <code class="docutils literal notranslate"><span class="pre">examples/spherical_lightbulb/1D</span></code> directory and copy the executable <em>sedona6.ex</em> there. You will see a parameter file called <em>param.lua</em> which is used to set the runtime parameters. The comments in this file explain the meaning of the parameters being used in the run (see <span class="xref std std-ref">parameter_file</span> for a full description of these files).</p>
+<p>Run the code as described in the section above. The calculation should only take a few seconds. The code outputs two spectrum files (<em>spectrum_1.dat</em> and <em>spectrum_1.h5</em>) which both contain the same observed spectrum, just in different formats (ascii and hdf5 respectively). See section ?? for a more complete description of output spectrum files.</p>
+<p>The code also outputs  plot files (such as <em>plt_00001.dat</em> and <em>plt_00001.h5</em>) which contain information on the properties on the model grid. The files labeled <em>plt_00000</em> represent the initial conditions of the model, while those labeled <em>plt_00001</em> represent the state of the model after the first iteration (i.e., after the transport has run). The ascii format only contains a few of the basic radial variables, such as density, temperature, velocity. The hdf5 format also stores the detailed radiation properties in each zone (e.g., the frequency dependent spectrum and opacity, found within the <code class="docutils literal notranslate"><span class="pre">zonedata/</span></code> group).  See  section ?? for a more complete description of the plot files.</p>
+<p>The file <em>integrated_quantities.dat</em> provides some of the model properties integrated over the entire grid, for the initial conditions and the state after each iteration.</p>
+<p>Once you have successful run the code, you can try changing runtime parameters, such as the properties of the core, the number of photon packets emitted, or the opacity. The model density is set so that using a grey opacity = 1 gives an radial optical depth of 1.</p>
+</div>
+<div class="section" id="example-2-type-ia-supernova-spectrum">
+<h2>Example #2: Type Ia Supernova Spectrum<a class="headerlink" href="#example-2-type-ia-supernova-spectrum" title="Permalink to this headline">¶</a></h2>
+<p>Example problem located in directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$SEDONA_HOME/examples/supernova/TypeIa/spectrum
+</pre></div>
+</div>
+<p>This example problem calculates a snapshot spectrum of a simple 1D Type Ia
+supernova. The input model file is located at
+<code class="docutils literal notranslate"><span class="pre">examples/supernova/TypeIa/models/toy_SNIa_1D.mod</span></code> and was generated by the <code class="docutils literal notranslate"><span class="pre">make_toy_SNIa_model.py</span></code> script in the same directory.  The model consists of
+supernova ejecta moving in homologous expansion (i.e., velocity proportional to radius)
+with a power-law density profile.  The mass of the ejecta is <img class="math" src="_images/math/ea0a22ce16666efaf6e4ba1dc9750518d0771199.png" alt="1~M_\odot"/> and
+the kinetic energy is <img class="math" src="_images/math/e0cb91bb5a47138c77b8f0a8023e2ec81be27162.png" alt="10^{51}"/> ergs.  The compositional structure is composed of
+3 layers: the inner <img class="math" src="_images/math/4c390b281a1ba9b89330e5fdcb9085fcfc2864b8.png" alt="0.6 M_\odot"/> of ejecta is pure radioactive <img class="math" src="_images/math/e58f801602518482a67718164654159a8aa23884.png" alt="^{56}{\rm Ni}"/> the surrounding <img class="math" src="_images/math/ec4655faf7ccf8668ae0d2e79b0cb037a0dd85ed.png" alt="0.3 M_\odot"/> is a mixture of intermediate mass elements (Si, S, Ca)
+and the outer <img class="math" src="_images/math/8c0775035f82dd20a2951c37bb104330d5873ef1.png" alt="0.1 M_\odot"/> is a 50-50 mixture of carbon and oxygen.  The radioactive
+<img class="math" src="_images/math/e58f801602518482a67718164654159a8aa23884.png" alt="^{56}{\rm Ni}"/> will be the energy source of radiation to be observed in the final spectrum.</p>
+<p>The directory has several different parameter files, each of which demonstrates a slightly different way of calculating the spectrum.  Consider first the parameter file <code class="docutils literal notranslate"><span class="pre">param_d20_lte_exp.lua</span></code>.  In this setup, the time after explosion at which we will calculate the spectrum is set to 20 days (which is set in units of seconds)</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- time of spectrum calculation</span>
+<span class="n">tstep_time_start</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="mf">3600.0</span><span class="o">*</span><span class="mf">24.0</span>
+</pre></div>
+</div>
+<p>The parameter file instructs the code to run a steady state calculation at this time with 4 interations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_steady_iterate</span>  <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p>In a steady state calculation, the Monte Carlo photon packets are transported through
+a medium held stationary. This should be a reaonable approximation when the
+timescale for photons to diffuse through the ejecta is much faster than the time it takes for the
+ejecta to expand significantly in size. The velocity of
+the expanding medium is still considered to account for Doppler shift effects.</p>
+<p>This steady state calculation requires multiple iterations in order to calculate the radial temperature structure, <img class="math" src="_images/math/f092f7e869ffc7452cb2f7f13068d2312cbea936.png" alt="T(r)"/>, of the ejecta. The temperature is here calculated under the assumption of <em>radiative equilibrium</em>, which means that in each zone the heating by absorption of photons is balanced by the cooling by the emission of photons. Radiative equilibrium is set by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">transport_radiative_equilibrium</span>  <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>On the first iteration, the code uses the <img class="math" src="_images/math/f092f7e869ffc7452cb2f7f13068d2312cbea936.png" alt="T(r)"/> given in the model file, which is merely a guess at the true temperature structure.  The code calculates the opacities and emissivities
+using this <img class="math" src="_images/math/f092f7e869ffc7452cb2f7f13068d2312cbea936.png" alt="T(r)"/>, and then transports photons packets through the domain, which determines the rate of radiative heating in each zone.  After the transport step, the code solves for the temperature in each zone that required for radiative cooling to balance the heating rate. The new solved for <img class="math" src="_images/math/f092f7e869ffc7452cb2f7f13068d2312cbea936.png" alt="T(r)"/> will differ from the initial guess, so this procedure must be iterated until convergence (i.e., until the temperature structure stops changing from one iteration to the next).  For this problem, around 4 iterations are found to be adequate.</p>
+<p>The number of particles propagated in each iteration is set by</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- radioactive particle emission</span>
+<span class="n">particles_n_emit_radioactive</span> <span class="o">=</span> <span class="mf">1e4</span>
+<span class="n">particles_last_iter_pump</span>     <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<p>The first parameter instructs the code to emit 10,000 photon packets from a radioacitve sources,
+in this case the <img class="math" src="_images/math/e58f801602518482a67718164654159a8aa23884.png" alt="^{56}{\rm Ni}"/> present in the model ejecta. The packets will be emitted randomly throughout the zones that contain <img class="math" src="_images/math/e58f801602518482a67718164654159a8aa23884.png" alt="^{56}{\rm Ni}"/>.  The packets are originally created as gamma-rays produced from the radioactive decay, but in the process of the transport will be absorbed and re-emitted as optical photons.</p>
+<p>While 10,000 photons are sufficient to calculate the temperature structure in this 1D model, more photons are desirable to get decent signal to noise in the output spectrum.  The parameter <code class="docutils literal notranslate"><span class="pre">particles_last_iter_pump</span> <span class="pre">=</span> <span class="pre">10</span></code> instructs the code to increase (pump-up) the number
+of packets by a factor of 10 (i.e., to 100,000) on the last iteration, when the temperature structure is presumed to be converged.</p>
+<p>Other parameters in the parameter file define the opacity to be used in the calculation</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- opacity information</span>
+<span class="n">opacity_grey_opacity</span>         <span class="o">=</span> <span class="mi">0</span>
+<span class="n">opacity_electron_scattering</span>  <span class="o">=</span> <span class="mi">1</span>
+<span class="n">opacity_fuzz_expansion</span>       <span class="o">=</span> <span class="mi">0</span>
+<span class="n">opacity_line_expansion</span>       <span class="o">=</span> <span class="mi">1</span>
+<span class="n">opacity_bound_bound</span>          <span class="o">=</span> <span class="mi">0</span>
+<span class="n">opacity_epsilon</span>              <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>This parameter file instructs the code to use electron scatter and line opacity
+in the expansion opacity formalism.  The line opacity is chosen to be purely
+absorptive by setting opacity_epsilon = 1.0, where epsilon is the ratio of absorptive
+opacity to total (i.e., absorptive plus scattering) opacity.</p>
+<p>Run the code using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">sedona6</span><span class="o">.</span><span class="n">ex</span> <span class="n">param_d20_lte_exp</span><span class="o">.</span><span class="n">lua</span>
+</pre></div>
+</div>
+<p>The code produces multiple “plt_00000x.dat” files, one for each iteration. These carry information about the physical properties on the grid after each iteration. You can examine them to ensure that the solution is converged (i.e., the temperature structure is no longer changing from one iteration to the next).  The “plt_00000x.h5” carry even more information, in hdf5 format.</p>
+<p>The code also produces multiple spectrum files; the one from the last iteration (“spectrum_4.dat”) is the final result you are looking for (the output spectra from early iterations can be examined to double check that the solution is converged). The “spectrum_x.h5” files contain the same information but in hdf5 format.</p>
+<p>The “spectrum_x.dat” files each have a one line header that describe the dimensions of the
+spectral output, with the format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#  n_times    n_frequency   n_mu   n_phi</span>
+</pre></div>
+</div>
+<p>where n_times is the number of time steps (here 1 for a steady state calculation),
+n_frequency is the number of frequency points in the spectrum, n_mu is the number
+of viewing angle bins in the theta direction (where <img class="math" src="_images/math/ebacea2317aeb16bb8b5ffc28115a0e3d98775ef.png" alt="\mu = \cos(\theta)"/>) and n_phi the number of viewing angle bins in the phi direction (both set to 1 here since the problem is spherically symmetric).</p>
+<p>After the header, the spectrum files have 3 columns in the format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">frequency</span><span class="p">(</span><span class="n">Hz</span><span class="p">)</span>   <span class="n">L_nu</span><span class="p">(</span><span class="n">ergs</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">packet_count</span>
+</pre></div>
+</div>
+<p>The L_nu column gives the specific luminosity of the observed spectrum at that
+frequency. To transform this to a flux observed on earth (units: ergs/s/cm^2/Hz),
+simply divide L_nu by <img class="math" src="_images/math/b1cae7d9355bf6449a7d74dfffb43d2468e89f1e.png" alt="4 \pi D^2"/> where <img class="math" src="_images/math/3cf5aa5abe312e6fd4996975341a43aa566e8d8d.png" alt="D"/> is the distance from the supernova
+to earth.</p>
+<p>The other parameter files in the directory demonstrate slightly different ways in
+which you can calculate the spectrum of this model:</p>
+<ul class="simple">
+<li><strong>param_d20_lte_fuzz.lua:</strong> This calculates the spectrum using line data from an alternative file, specified in the <code class="docutils literal notranslate"><span class="pre">data_fuzzline_file</span></code> parameter.  The lines are treated in the expansion opacity formalism, so the results should be similar to the first example given, with differences being only due to the atomic data used.</li>
+<li><strong>param_d20_lte_bb.lua:</strong> This calculates the spectrum using a more accurate treatment of lines (i.e., bound-bound transitions) by considering them independently instead of binning them together in the expansion opacity formalism. A higher freqeuency resolution is required to resolve the line profiles, and the calculation takes longer due to the higher opacities in the resolved line centers.</li>
+<li><strong>param_d20_lte_core.lua:</strong>  This calculates the spectrum using an absorbing spherical inner boundary surface (i.e., the photosphere, or <em>core</em>) at a radius set by the <code class="docutils literal notranslate"><span class="pre">core_radius</span></code> parameter. Photon packets are emitted as a blackbody from the surface of this core (rather than from the radioactive zones throughout the domain). This calculation is faster than the others since the optically thick inner regions of ejecta below the core are not included in the transport. Using a core is artifical, but the approximation can give reasonable results when the core is placed at high enough optically.</li>
+</ul>
+</div>
+<div class="section" id="example-3-type-ia-supernova-light-curve">
+<h2>Example #3: Type Ia Supernova Light Curve<a class="headerlink" href="#example-3-type-ia-supernova-light-curve" title="Permalink to this headline">¶</a></h2>
+<p>Example problem located in directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$SEDONA_HOME/examples/supernova/TypeIa/lightcurve
+</pre></div>
+</div>
+<p>This problem uses the same Type Ia supernova model discussed in Example #2, but
+instead does a time-dependent calculation that evolves the ejecta from 2 days to 60 days
+after explosion. The final spectral output will be
+in the “spectrum_final.dat” file (as well as the “spectrum_final.h5” final) which now consists if a series of spectra, one for each time point.  The “spectrum_final.dat” file now has four columns with data for:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span>  <span class="n">frequency</span><span class="p">(</span><span class="n">Hz</span><span class="p">)</span>   <span class="n">L_nu</span><span class="p">(</span><span class="n">ergs</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">packet_count</span>
+</pre></div>
+</div>
+<p>The light curve in any band can be calculated by integrating the spectra over the appropriate
+filter transmission function. Scripts for doing this are available in the <em>sedonalib</em> python package.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Running Sedona</a><ul>
+<li><a class="reference internal" href="#example-1-spherical-lightbulb-test">Example #1: Spherical Lightbulb Test</a></li>
+<li><a class="reference internal" href="#example-2-type-ia-supernova-spectrum">Example #2: Type Ia Supernova Spectrum</a></li>
+<li><a class="reference internal" href="#example-3-type-ia-supernova-light-curve">Example #3: Type Ia Supernova Light Curve</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installing.html"
+                        title="previous chapter">Installing Sedona</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="input_files.html"
+                        title="next chapter">Input  Files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/running.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="input_files.html" title="Input Files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installing.html" title="Installing Sedona"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sedona6  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, D. Kasen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

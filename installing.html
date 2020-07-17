@@ -1,0 +1,202 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Installing Sedona &#8212; Sedona6  documentation</title>
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Running Sedona" href="running.html" />
+    <link rel="prev" title="Sedona6 Users Guide" href="index.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head><body>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="running.html" title="Running Sedona"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Sedona6 Users Guide"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sedona6  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installing-sedona">
+<h1>Installing Sedona<a class="headerlink" href="#installing-sedona" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="getting-the-code">
+<h2>Getting the Code<a class="headerlink" href="#getting-the-code" title="Permalink to this headline">¶</a></h2>
+<p>The code is available for download on github <a class="reference external" href="https://github.com/dnkasen/sedona6">here</a>.
+Or you can clone from the command line using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">dnkasen</span><span class="o">/</span><span class="n">sedona6</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-dependencies">
+<span id="dependencies"></span><h2>Installing Dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>[sedona] requires a C++ compiler for instalation. In addition. the following dependencies must be installed:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.hdfgroup.org/solutions/hdf5/">HDF5</a> (file formating)</li>
+<li><a class="reference external" href="https://www.gnu.org/software/gsl/doc/html/">GSL</a> (gnu scientific library)</li>
+<li><a class="reference external" href="http://www.lua.org">lua</a> (scripting language used for parameter files)</li>
+</ul>
+<p>[sedona] is parallelized using a hybrid of MPI and openMP. To run in parallel, you must also have installed an MPI  and/or an openMP distribution.</p>
+<p>These packages may already been installed on clusters and computing systems. If not, they can be conveniently installed using a package manager – see below for details.</p>
+<p>If your dependencies are not installed in a standard location (e.g., usr/local/) then you will need to set the <code class="docutils literal notranslate"><span class="pre">GSL_DIR,</span> <span class="pre">HDF5_DIR</span></code>, and <code class="docutils literal notranslate"><span class="pre">LUA_DIR</span></code> environment variables to specify the path to the instalations. In the bash shell, for example, add to your bash.profile:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span>  <span class="n">GSL_DIR</span><span class="o">=/</span><span class="n">base</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">of</span><span class="o">/</span><span class="n">gsl</span><span class="o">/</span>
+<span class="n">export</span> <span class="n">HDF5_DIR</span><span class="o">=/</span><span class="n">base</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">of</span><span class="o">/</span><span class="n">hdf5</span><span class="o">/</span>
+<span class="n">export</span>  <span class="n">LUA_DIR</span><span class="o">=/</span><span class="n">base</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">of</span><span class="o">/</span><span class="n">lua</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>where the <code class="docutils literal notranslate"><span class="pre">/base/path/of/xxx</span></code> should be replaced with the full base path where the package is installed.</p>
+<p>A python distribution is not required to run [sedona] itself, however it can be useful for  working with input and output files (in particular the <a class="reference external" href="https://www.h5py.org">h5py</a> package allows for easy creation and reading of hdf5 files).  The [sedona] distribution comes with a python package called <em>sedonalib</em> that contains useful tools for
+generating, reading, and plotting files. The <a class="reference external" href="https://www.anaconda.com/products/individual">anaconda</a> python distribution  makes it relatively easy to install the needed python packages.</p>
+<hr class="docutils" />
+<p><strong>Installing Dependencies on a Mac</strong></p>
+<p>On a mac, the <em>homebrew</em> package manager provides a convenient way to install dependences. Type <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">help</span></code> to check if homebrew it is already installed on your machine. If the command is not found, it can be installed by issuing
+the command given on the
+<a class="reference external" href="https://docs.brew.sh/Installation">homebrew installation page</a></p>
+<p>Once installed, the necessary [sedona] dependencies can be
+installed with the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">lua</span>
+<span class="n">brew</span> <span class="n">install</span> <span class="n">gsl</span>
+<span class="n">brew</span> <span class="n">install</span> <span class="n">hdf5</span>
+</pre></div>
+</div>
+<p>If you wish to run mpi parallel jobs, you should also install mpich:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">mpich</span>
+</pre></div>
+</div>
+<p>If you lack a C++ compiler, you can install the gcc compiler through <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">gcc</span></code>. Alternatively, mac Mac provides a C++ compiler through its Xcode tools.</p>
+<hr class="docutils" />
+<p><strong>Installing Dependencies on a Linux System</strong></p>
+<p>On Debian, Ubunto and some other linux systems, the <em>apt</em> package manager provides a convenient way to install dependences. If <em>apt</em> is installed on your machine, you can update it using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+</pre></div>
+</div>
+<p>Root privileges are required. You can then install the necessary dependencies using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gsl</span><span class="o">-</span><span class="nb">bin</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">s</span> <span class="n">install</span> <span class="n">lua5</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libhdf5</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>If you wish to run mpi and openMP parallel jobs, you should also install:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span>  <span class="n">mpich</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">libomp</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Installing Dependencies on a Cluster</strong></p>
+<p>Many clusters and supercomputer centers will have some of the dependencies already installed.  Use the module load</p>
+</div>
+<div class="section" id="compiling-the-code">
+<h2>Compiling the Code<a class="headerlink" href="#compiling-the-code" title="Permalink to this headline">¶</a></h2>
+<p>To compile [sedona], first change to the <code class="docutils literal notranslate"><span class="pre">src/</span></code> directory in the [sedona] distribution, and type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>to ensure that the compile script is executable.  [sedona] comes with a set of makefiles to facilitate compilation on different machines.  To see a list of machines that have makefiles, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="n">help</span>
+</pre></div>
+</div>
+<p>If you see a machine name appropriate to your system, you can attempt compiling the code by typing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">&lt;</span><span class="n">MACHINE</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;MACHINE&gt;</span></code> is the name of the machine.</p>
+<p>If you don’t see a relevant Makefile for your machine, or if compilation fails, you should modify a Makefile directly. Open the <code class="docutils literal notranslate"><span class="pre">makefiles/Makefile.general</span></code> file and make sure that the <code class="docutils literal notranslate"><span class="pre">CXX</span></code> variable is set to your  C++ compiler. You can also change the <code class="docutils literal notranslate"><span class="pre">CXX_FLAGS</span></code> variables to set the compiler flags of your choosing. You can also check that all dependent packages are installed and that the GSL_DIR, HDF5_DIR and LUA_DIR environment variables are set,  as described in <a class="reference internal" href="#dependencies"><span class="std std-ref">Installing Dependencies</span></a></p>
+<p>Once compilation is successful, the executable file <code class="docutils literal notranslate"><span class="pre">sedona6.ex</span></code> will appear in the <code class="docutils literal notranslate"><span class="pre">src/</span></code> directory. Copy this to the directory where you would like to run the code.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing Sedona</a><ul>
+<li><a class="reference internal" href="#getting-the-code">Getting the Code</a></li>
+<li><a class="reference internal" href="#installing-dependencies">Installing Dependencies</a></li>
+<li><a class="reference internal" href="#compiling-the-code">Compiling the Code</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Sedona6 Users Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="running.html"
+                        title="next chapter">Running Sedona</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="running.html" title="Running Sedona"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Sedona6 Users Guide"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sedona6  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, D. Kasen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>
